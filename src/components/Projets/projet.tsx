@@ -3,9 +3,10 @@ import Chip from "@mui/material/Chip";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import adrianaImg from "../../assets/image/IA.png";
+import CardContent from "@mui/material/CardContent";
 import assistImg from "../../assets/image/ai-technology.jpg";
 import exempleImg from "../../assets/image/Projetprofessionnel.jpg.webp";
-import CardContent from "@mui/material/CardContent";
+
 
 const projects = [
   {

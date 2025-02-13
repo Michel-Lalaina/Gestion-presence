@@ -12,7 +12,7 @@ const skills = [
   {
     title: "Cadres",
     icon: <IntegrationInstructions className="text-blue-500" />,
-    items: ["CodeIgniter", "Laravel", "VueJs", "Quasar", "Django", "Qt", "ReactJs", "API rapide"],
+    items: ["CodeIgniter", "Spring boot", "VueJs", "Quasar", "Django", "Qt", "ReactJs", "Tailwind CSS", "API rapide"],
   },
   {
     title: "Base de données",
@@ -22,7 +22,7 @@ const skills = [
   {
     title: "Langages de programmation",
     icon: <Code className="text-blue-500" />,
-    items: ["PHP", "Javascript", "Python"],
+    items: ["Java", "Javascript", "Python"],
   },
   {
     title: "Méthodologies de Travail",
@@ -42,7 +42,7 @@ const Competences: React.FC = () => {
       <h2 className="text-3xl font-bold text-center mb-8">Compétences en informatique</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {skills.map((skill, index) => (
-          <Card key={index} className="shadow-lg rounded-lg ">
+          <Card key={index} className="shadow-lg rounded-lg hover:scale-105 ease-in-out transition">
             <CardContent>
               <div className="flex items-center gap-2 mb-4">
                 {skill.icon}

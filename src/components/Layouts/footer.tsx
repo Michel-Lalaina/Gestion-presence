@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between relative z-10">
         {/* Logo & Nom */}
         <div className="text-center md:text-left">
-          <h1 className="text-2xl font-bold tracking-wide">Michel Ramanantenasoa</h1>
+          <h1 className="text-2xl font-bold tracking-wide">Michel Lalaina Ramanantenasoa</h1>
           <p className="text-gray-400 text-sm mt-1">© 2025 Tous droits réservés.</p>
         </div>
 
