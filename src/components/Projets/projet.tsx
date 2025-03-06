@@ -3,31 +3,31 @@ import Chip from "@mui/material/Chip";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import adrianaImg from "../../assets/image/IA.png";
+import assistImg from "../../assets/image/qcm.png";
+import exempleImg from "../../assets/image/L3.png";
 import CardContent from "@mui/material/CardContent";
-import assistImg from "../../assets/image/ai-technology.jpg";
-import exempleImg from "../../assets/image/Projetprofessionnel.jpg.webp";
 
 
 const projects = [
   {
-    name: "Adriana",
-    description: "L'IA qui simplifie vos calculs d'impôts en moins de 10 questions !",
-    tags: ["LangChain", "PyTorch", "FastAPI", "LLM", "STT", "TTS"],
+    name: "Lm chat",
+    description: "L'IA qui vous aide a vos calculs et evaluer votre capaciter a resonner!",
+    tags: ["ReactJS", "FastAPI", "ORM : sqlalchemy"],
     image: adrianaImg,
     link: "#",
   },
   {
     name: "TAM",
-    description: "Platforme web pour le suivi des vols",
-    tags: ["FastAPI", "React", "Node"],
+    description: "Platforme web pour le suivi des vols et gestion de maintenance des avions",
+    tags: [ "React", "Node", "Tailwind CSS", "ORM : Sequilize"],
     image: exempleImg,
     link: "#",
   },
   {
-    name: "Assist IA",
+    name: "Qcm_CAP",
     description:
-      "Assist est une IA proactive qui génère des réponses et du contenu, offrant une assistance personnalisée pour divers secteurs.",
-    tags: ["LLM", "Python", "FastAPI", "JS"],
+      "Qcm_cap est une application mobile de quiz pour evaluer et tester un cadidat en ligne.",
+    tags: [ "NodeJS", "NextJS", "ORM : Prisma"],
     image: assistImg,
     link: "#",
   },
@@ -45,7 +45,7 @@ const Projects: React.FC = () => {
               <div className="flex items-center gap-2 mb-2">
                
                 <Typography variant="body2" className="text-blue-500">
-                  IA
+                  APK
                 </Typography>
               </div>
               <Typography variant="h6" className="font-semibold">

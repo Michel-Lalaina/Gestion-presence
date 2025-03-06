@@ -6,18 +6,17 @@ const skills = [
   {
     title: "Intelligence Artificielle",
     icon: <Psychology className="text-blue-500" />,
-    items: [  "Maîtrise en droit (LL.M.)",  "STT",  "TTS",  "Chaîne de langue",  "PyTorch",  "MLOps",  "Transformateurs",
-      "CHIFFON",  "Réglage fin",  "Réglage rapide",  "Néo4j",  "Chromadb",  "Grandes lignes",  ],
+    items: [  "Intégration d’API IA", "Développement d’applications avec IA" ],
   },
   {
-    title: "Cadres",
+    title: "Frameworks",
     icon: <IntegrationInstructions className="text-blue-500" />,
-    items: ["CodeIgniter", "Spring boot", "VueJs", "Quasar", "Django", "Qt", "ReactJs", "Tailwind CSS", "API rapide"],
+    items: ["ReactJs", "NodeJS", "NextJs", "Tailwind CSS", "FastAPI "],
   },
   {
     title: "Base de données",
     icon: <Storage className="text-blue-500" />,
-    items: ["MySQL", "PostgreSQL", "Base de feu", "MongoDB"],
+    items: ["MySQL", "PostgreSQL", "MongoDB"],
   },
   {
     title: "Langages de programmation",
@@ -27,7 +26,7 @@ const skills = [
   {
     title: "Méthodologies de Travail",
     icon: <Settings className="text-blue-500" />,
-    items: ["2TUP", "Merise", "UML", "Agile (scrum)"],
+    items: ["2TUP", "Merise", "UML"],
   },
   {
     title: "Gestionnaire de version",

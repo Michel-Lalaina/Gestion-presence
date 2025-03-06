@@ -55,7 +55,7 @@ const Accueil: React.FC = () => {
 
           <motion.div variants={fadeIn(0.4)} initial="hidden" animate="visible">
             <Typography variant="h2" fontWeight="800" className="text-blue-600">
-              Michel Ramanantenasoa
+            Michel Ramanantenasoa
             </Typography>
 
           </motion.div>

@@ -4,9 +4,8 @@ import codeImage from "../../assets/image/971.jpg";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const competences = [
-  { name: "LLM", value: 90 },
-  { name: "Full-Stack", value: 95 },
-  { name: "Data Science", value: 75 },
+  { name: "Full-Stack", value: 98 },
+  { name: "IA integration", value: 75 },
 ];
 
 const Apropos: React.FC = () => {
@@ -39,9 +38,10 @@ const Apropos: React.FC = () => {
               </p>
             </div>
           </div>
-
+         
           {/* Compétences avec Graphiques */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <h3 className="text-2xl font-semibold text-gray-700">Expertise</h3>
             {competences.map((comp, index) => (
               <div
                 key={index}
@@ -85,7 +85,7 @@ const Apropos: React.FC = () => {
             <div>
               <h3 className="text-2xl font-semibold text-gray-700">Technologies</h3>
               <p className="text-lg text-gray-600 font-medium">
-                LangChain, PyTorch, FastAPI, ReactJS, MySQL/MongoDB
+                 FastAPI, ReactJS,ExpressJS, MySQL/MongoDB
               </p>
             </div>
           </div>
