@@ -28,10 +28,12 @@ const architecture: Node = {
         { name: "Auth", folder: true },
       ],
     },
-    { name: "hooks", folder: true },
+    // { name: "hooks", folder: true },
     { name: "layouts", folder: true },
     { name: "pages", folder: true },
-    { name: "routes", folder: true },
+    // { name: "routes", folder: true }, facultatif sad aleo ts apina
+    // { name: "store", folder: true },
+    // { name: "types", folder: true },
     { name: "services", folder: true },
     { name: "utils", folder: true },
     { name: "App.tsx" },
@@ -45,8 +47,8 @@ export default function ArchitectureTree() {
     <Card className="max-w-3xl mx-auto mt-10 shadow-lg rounded-2xl bg-white">
       <CardContent>
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
-          🧱 Architecture du notre frontend React
-        </h2> 
+          🧱 Architecture du frontend React
+        </h2>
         <div className="p-4">
           <TreeNode node={architecture} />
         </div>
