@@ -1,7 +1,7 @@
 
-import StatsCards from "../components/dashboard/StatsCards";
-import PresenceChart from "../components/dashboard/PresenceChart";
-import RecentActivity from "../components/dashboard/RecentActivity";
+import StatsCards from "../components/Dashboard/StatsCards";
+import PresenceChart from "../components/Dashboard/PresenceChart";
+
 
 export default function Dashboard() {
   return (
@@ -31,7 +31,6 @@ export default function Dashboard() {
           <PresenceChart />
         </div>
 
-        <RecentActivity />
 
       </div>
     </div>

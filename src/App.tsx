@@ -1,28 +1,19 @@
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import StudentCardsPage from "./page/Presence";
- import PresenceList from "./page/PresenceList";
+import PresenceList from "./page/PresenceList";
 import MainLayout from "./layouts/mainLayout";
+import Dashboard from "./page/Dashboard";
 
 function App() {
-
   return (
-
-
-    <BrowserRouter>
-      <Routes>
-
-        {/* layout global */}
-        <Route element={<MainLayout />}>
-
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/presences" element={<PresenceList/>} />
-          <Route path="/etudiants" element={<StudentCardsPage/>} />
-          <Route path="/cours" element={<Cours />} />
-        </Route>
-
-      </Routes>
-    </BrowserRouter>
-  )
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/presences" element={<PresenceList />} />
+        <Route path="/etudiants" element={<StudentCardsPage />} />
+      </Route>
+    </Routes>
+  );
 }
-    export default App
+
+export default App;
