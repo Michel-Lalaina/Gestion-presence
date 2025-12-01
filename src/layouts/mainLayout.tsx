@@ -1,16 +1,21 @@
 
 
 
-const MainLayout:React.FC=()=>{
+import { Outlet } from "react-router-dom";
+import { Side } from "../components/Sidebar";
 
+export default function MainLayout() {
+  return (
+    <div className="flex w-full min-h-screen bg-gray-50">
 
+      {/* SIDEBAR FIXE */}
+      <Side/>
 
-return(
-<div className="w-full">
+      {/* CONTENU QUI CHANGE */}
+      <main className="flex-1 p-10 overflow-y-auto">
+        <Outlet />
+      </main>
 
-
-</div>
-    
-)
+    </div>
+  );
 }
-export default MainLayout;

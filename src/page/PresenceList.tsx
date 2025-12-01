@@ -10,7 +10,6 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import GridOnIcon from "@mui/icons-material/GridOn";
-import { Side } from "../components/Side";
 
 const presenceData = [
   {
@@ -71,7 +70,6 @@ export default function PresenceList() {
     <div className="flex flex-col w-full px-10 py-8">
       {/* TITLE */}
       <h1 className="text-4xl font-extrabold mb-8">Liste des Présences</h1>
-<Side />
       {/* FILTER BAR */}
       <div className="w-full bg-white rounded-xl shadow p-5 flex flex-wrap gap-3 items-center mb-8">
         <div className="flex items-center bg-gray-100 rounded-xl px-4 py-2 w-64">

@@ -3,7 +3,6 @@ import { Button, Card, CardContent, Avatar } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import DownloadIcon from "@mui/icons-material/Download";
-import { Side } from "../components/Side";
 
 
 // crucial: placeholder QR images until API is ready
@@ -58,8 +57,8 @@ const studentsData = [
 
 export default function StudentCardsPage() {
     return (
-        <div className="flex">
-            <Side />
+    
+            
             <div className="flex w-full min-h-screen bg-gray-50">
 
 
@@ -131,6 +130,5 @@ export default function StudentCardsPage() {
                 </main>
 
             </div>
-        </div>
     );
 }

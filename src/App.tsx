@@ -1,20 +1,28 @@
-// import ArchitectureTree from "./components/ArchitectureTree";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StudentCardsPage from "./page/Presence";
-// import PresenceList from "./page/PresenceList";
+ import PresenceList from "./page/PresenceList";
+import MainLayout from "./layouts/mainLayout";
 
 function App() {
-//Eto ny point d ' entrer App
 
   return (
 
-    <div className="p-6">  <h1 className="text-green-700">MambaTECH</h1> 
-    {/* <ArchitectureTree/> */}
-    <StudentCardsPage/>
-    {/* <PresenceList/> */}
-    </div>
 
-  );
+    <BrowserRouter>
+      <Routes>
+
+        {/* layout global */}
+        <Route element={<MainLayout />}>
+
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/presences" element={<PresenceList/>} />
+          <Route path="/etudiants" element={<StudentCardsPage/>} />
+          <Route path="/cours" element={<Cours />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+  )
 }
-
-export default App;
+    export default App
