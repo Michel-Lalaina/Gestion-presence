@@ -1,12 +1,12 @@
 
 import StatsCards from "../components/Dashboard/StatsCards";
 import PresenceChart from "../components/Dashboard/PresenceChart";
-
+import RecentActivity from "./RecentActivity";
 
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-8">
-      
+
       {/* TITRE + SEARCH BAR */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Tableau de Bord</h1>
@@ -26,12 +26,12 @@ export default function Dashboard() {
 
       {/* GRAPH + ACTIVITE RECENTE */}
       <div className="grid grid-cols-3 gap-6">
-        
+
         <div className="col-span-2">
           <PresenceChart />
         </div>
 
-
+        <RecentActivity />
       </div>
     </div>
   );
