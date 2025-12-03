@@ -3,6 +3,7 @@ import StudentCardsPage from "./page/Presence";
 import PresenceList from "./page/PresenceList";
 import MainLayout from "./layouts/mainLayout";
 import Dashboard from "./page/Dashboard";
+import Settings from "./page/Settings";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/presences" element={<PresenceList />} />
         <Route path="/etudiants" element={<StudentCardsPage />} />
+        <Route path="/parametres" element={<Settings/>} />
+
       </Route>
     </Routes>
   );
