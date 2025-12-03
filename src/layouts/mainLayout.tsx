@@ -12,7 +12,7 @@ export default function MainLayout() {
       <Side/>
 
       {/* CONTENU QUI CHANGE */}
-      <main className="flex-1 p-10 overflow-y-auto">
+      <main className="w-full flex-1 p-10 overflow-y-auto">
         <Outlet />
       </main>
 
