@@ -17,6 +17,40 @@
   animation: gradientMove 6s ease infinite;
 }
 
+
+.toggle-switch {
+  appearance: none;
+  width: 45px;
+  height: 22px;
+  border-radius: 30px;
+  background: #d1d5db;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.toggle-switch:checked {
+  background: #22c55e;
+}
+
+.toggle-switch::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: 0.2s;
+}
+
+.toggle-switch:checked::before {
+  transform: translateX(23px);
+}
+
+
+
 :root {
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

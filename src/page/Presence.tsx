@@ -58,10 +58,7 @@ const studentsData = [
 export default function StudentCardsPage() {
     return (
     
-            
             <div className="flex w-full min-h-screen bg-gray-50">
-
-
 
                 {/* MAIN */}
                 <main className="flex-1 p-10">
