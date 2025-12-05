@@ -8,7 +8,7 @@ export interface Presence {
   sortie: string;
   statut: string;
 }
-import axios from "axios"
+// import axios from "axios"
 
 const presenceData: Presence[] = [
   {
@@ -66,7 +66,7 @@ export function fetchPresence(): Promise<Presence[]> {
     }, 800); // 800ms comme un vrai appel réseau
   });
 }
-export async function fetchPresenceApi(): Promise<Presence[]> {
-  const res = await axios.get("/api/presenceList"); 
-  return res.data;
-}
+// export async function fetchPresenceApi(): Promise<Presence[]> {
+//   const res = await axios.get("/api/presenceList"); 
+//   return res.data;
+// }
