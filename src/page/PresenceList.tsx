@@ -1,75 +1,47 @@
-
 import {
   Button,
   TextField,
   MenuItem,
   Avatar,
   Pagination,
-  Chip,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import GridOnIcon from "@mui/icons-material/GridOn";
 
-const presenceData = [
-  {
-    id: 1,
-    name: "Léa Dubois",
-    avatar: "https://i.pravatar.cc/150?img=32",
-    cours: "Développement Web",
-    entree: "09:02",
-    sortie: "11:58",
-    statut: "Présent",
-  },
-  {
-    id: 2,
-    name: "Marc Petit",
-    avatar: "https://i.pravatar.cc/150?img=15",
-    cours: "Bases de Données",
-    entree: "-",
-    sortie: "-",
-    statut: "Absent",
-  },
-  {
-    id: 3,
-    name: "Chloé Martin",
-    avatar: "https://i.pravatar.cc/150?img=45",
-    cours: "Développement Web",
-    entree: "09:12",
-    sortie: "12:01",
-    statut: "Retard",
-  },
-  {
-    id: 4,
-    name: "Hugo Bernard",
-    avatar: "https://i.pravatar.cc/150?img=27",
-    cours: "Réseaux Informatiques",
-    entree: "14:00",
-    sortie: "16:45",
-    statut: "Présent",
-  },
-  {
-    id: 5,
-    name: "Alice Fournier",
-    avatar: "https://i.pravatar.cc/150?img=18",
-    cours: "Bases de Données",
-    entree: "09:05",
-    sortie: "11:55",
-    statut: "Présent",
-  },
-];
-
+import { useEffect, useState } from "react";
+import { fetchPresence, Presence } from "../services/PresenceService";
 const statusColors: Record<string, string> = {
   Présent: "bg-green-600 text-white",
   Absent: "bg-red-500 text-white",
   Retard: "bg-yellow-500 text-white",
 };
 
+
 export default function PresenceList() {
+  const [presenceData, setPresenceData] = useState<Presence[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPresence().then((data) => {
+      setPresenceData(data);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-full text-xl">
+        Chargement...
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col w-full px-10 py-8">
       {/* TITLE */}
       <h1 className="text-4xl font-extrabold mb-8">Liste des Présences</h1>
+
       {/* FILTER BAR */}
       <div className="w-full bg-white rounded-xl shadow p-5 flex flex-wrap gap-3 items-center mb-8">
         <div className="flex items-center bg-gray-100 rounded-xl px-4 py-2 w-64">
@@ -104,11 +76,7 @@ export default function PresenceList() {
           <MenuItem value="yesterday">Hier</MenuItem>
         </TextField>
 
-        <Button
-          variant="outlined"
-          startIcon={<PictureAsPdfIcon />}
-          className="normal-case ml-auto"
-        >
+        <Button variant="outlined" startIcon={<PictureAsPdfIcon />} className="normal-case ml-auto">
           Exporter en PDF
         </Button>
 
@@ -162,13 +130,7 @@ export default function PresenceList() {
         <div className="flex items-center justify-between px-6 py-4 text-sm text-gray-600">
           <span>Affichage de 1–5 sur 100</span>
 
-          <Pagination
-            count={3}
-            page={2}
-            siblingCount={0}
-            boundaryCount={1}
-            color="primary"
-          />
+          <Pagination count={3} page={2} siblingCount={0} boundaryCount={1} color="primary" />
         </div>
       </div>
     </div>
