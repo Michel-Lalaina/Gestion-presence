@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 export const Side: React.FC = () => {
     return (
-        <aside className="w-64 bg-white shadow-sm flex flex-col px-6 py-8 h-screen">
+        <aside className="h-screen bg-white shadow-sm flex flex-col px-6 py-8">
 
             {/* LOGO */}
             <div className="flex items-center gap-3 mb-10">

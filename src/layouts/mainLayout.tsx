@@ -6,16 +6,19 @@ import { Side } from "../components/Sidebar";
 
 export default function MainLayout() {
   return (
-    <div className="flex w-full min-h-screen bg-gray-50">
+    <div className="flex min-h-screen w-full bg-gray-50">
 
-      {/* SIDEBAR FIXE */}
-      <Side/>
+      {/* Sidebar FIXE */}
+      <div className="w-64 shrink-0">
+        <Side />
+      </div>
 
-      {/* CONTENU QUI CHANGE */}
-      <main className="w-full flex-1 p-10 overflow-y-auto">
+      {/* Contenu qui prend TOUT LE RESTE */}
+      <main className="flex-1 p-10 overflow-y-auto">
         <Outlet />
       </main>
 
     </div>
   );
 }
+

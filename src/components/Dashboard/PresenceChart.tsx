@@ -15,7 +15,7 @@ const data = [
 
 export default function PresenceChart() {
   return (
-    <div className="bg-white shadow-sm border border-gray-100 rounded-xl p-6">
+    <div className="w-full bg-white shadow-sm border border-gray-100 rounded-xl p-6">
       <h2 className="text-xl font-semibold mb-4">
         Taux de Présence par Cours
       </h2>
