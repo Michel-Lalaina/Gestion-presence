@@ -1,4 +1,6 @@
 // src/services/presenceService.ts
+import axios from "axios";
+
 export interface Presence {
   id: number;
   name: string;
@@ -8,7 +10,6 @@ export interface Presence {
   sortie: string;
   statut: string;
 }
-// import axios from "axios"
 
 const presenceData: Presence[] = [
   {
@@ -66,7 +67,18 @@ export function fetchPresence(): Promise<Presence[]> {
     }, 800); // 800ms comme un vrai appel réseau
   });
 }
-// export async function fetchPresenceApi(): Promise<Presence[]> {
-//   const res = await axios.get("/api/presenceList"); 
-//   return res.data;
-// }
+
+
+
+const API_URL = "http://127.0.0.1:8000";
+
+
+export const getListPresence = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/presenceLists`); // Remplacez par l'URL de votre backend
+    return response.data; // On suppose que le backend renvoie { question, options, quizId }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des eleves", error);
+    throw error;
+  }
+};
