@@ -9,7 +9,7 @@ export default function MainLayout() {
     <div className="flex min-h-screen w-full bg-gray-50">
 
       {/* Sidebar FIXE */}
-      <div className="w-64 shrink-0">
+      <div className="max w-64 shrink-0">
         <Side />
       </div>
 
