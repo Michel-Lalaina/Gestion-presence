@@ -66,6 +66,24 @@ const presenceData: Presence[] = [
     sortie: "11:55",
     statut: "Présent",
   },
+    {
+    id: 6,
+    name: "Lalaina Michel",
+    avatar: "https://i.pravatar.cc/150?img=12",
+    cours: "DevOps",
+    entree: "09:00",
+    sortie: "11:50",
+    statut: "Présent",
+  },
+    {
+    id: 7,
+    name: "LM Ram",
+    avatar: "https://i.pravatar.cc/150?img=11",
+    cours: "Réseaux",
+    entree: "09:02",
+    sortie: "11:55",
+    statut: "Présent",
+  },
 ];
 
 // Simule un appel API GET /presence
