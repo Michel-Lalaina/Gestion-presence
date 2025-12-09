@@ -10,13 +10,25 @@ export const ElevGet=async ()=>{
     throw error;
     }
 }
-
-export const createEleve = async (name: string, cours: string, statut: string, heureEntrer: string, heureSortie: string) => {
+export const createEleve = async (
+  name: string,
+  cours: string,
+  statut: string,
+  heureEntree: string,
+  heureSortie: string
+) => {
   try {
-    const response = await axios.post(`${API_URL}/elevCreat`, { name, cours, statut, heureEntrer, heureSortie });
+    const response = await axios.post(`${API_URL}/eleveCreate`, {
+      name,
+      cours,
+      statut,
+      heureEntree,
+      heureSortie,
+    });
+
     return response.data;
   } catch (error) {
-    console.error("Erreur lors de l'ajout du quiz", error);
+    console.error("Erreur lors de la création de l'élève :", error);
     throw error;
   }
 };

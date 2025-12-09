@@ -65,9 +65,8 @@ export function fetchPresence(): Promise<Presence[]> {
   });
 }
 
-// ----------------------------------------------------
 // ------------------- COMPONENT ----------------------
-// ----------------------------------------------------
+
 
 export default function PresenceList() {
   const [data, setData] = useState<Presence[]>([]);
