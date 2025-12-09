@@ -1,4 +1,10 @@
-import {Button, TextField, MenuItem, Avatar, Pagination,} from "@mui/material";
+import {
+  Button,
+  TextField,
+  MenuItem,
+  Avatar,
+  Pagination,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import GridOnIcon from "@mui/icons-material/GridOn";
@@ -10,7 +16,7 @@ const statusColors: Record<string, string> = {
   Retard: "bg-yellow-500 text-white",
 };
 
- interface Presence {
+interface Presence {
   id: number;
   name: string;
   avatar: string;
@@ -20,7 +26,10 @@ const statusColors: Record<string, string> = {
   statut: string;
 }
 
-const presenceData: Presence[] = [
+import AddStudentModal from "../components/AddStudentModal";
+
+// ---- SIMULE API ----
+const fakePresence: Presence[] = [
   {
     id: 1,
     name: "Léa Dubois",
@@ -48,60 +57,28 @@ const presenceData: Presence[] = [
     sortie: "12:01",
     statut: "Retard",
   },
-  {
-    id: 4,
-    name: "Hugo Bernard",
-    avatar: "https://i.pravatar.cc/150?img=27",
-    cours: "Réseaux Informatiques",
-    entree: "14:00",
-    sortie: "16:45",
-    statut: "Présent",
-  },
-  {
-    id: 5,
-    name: "Alice Fournier",
-    avatar: "https://i.pravatar.cc/150?img=18",
-    cours: "Bases de Données",
-    entree: "09:05",
-    sortie: "11:55",
-    statut: "Présent",
-  },
-    {
-    id: 6,
-    name: "Lalaina Michel",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    cours: "DevOps",
-    entree: "09:00",
-    sortie: "11:50",
-    statut: "Présent",
-  },
-    {
-    id: 7,
-    name: "LM Ram",
-    avatar: "https://i.pravatar.cc/150?img=11",
-    cours: "Réseaux",
-    entree: "09:02",
-    sortie: "11:55",
-    statut: "Présent",
-  },
 ];
 
-// Simule un appel API GET /presence
 export function fetchPresence(): Promise<Presence[]> {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(presenceData);
-    }, 800); // 800ms comme un vrai appel réseau
+    setTimeout(() => resolve(fakePresence), 800);
   });
 }
 
+// ----------------------------------------------------
+// ------------------- COMPONENT ----------------------
+// ----------------------------------------------------
+
 export default function PresenceList() {
-  const [presenceData, setPresenceData] = useState<Presence[]>([]);
+  const [data, setData] = useState<Presence[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // État du modal
+  const [openAddModal, setOpenAddModal] = useState(false);
+
   useEffect(() => {
-    fetchPresence().then((data) => {
-      setPresenceData(data);
+    fetchPresence().then((d) => {
+      setData(d);
       setLoading(false);
     });
   }, []);
@@ -153,7 +130,11 @@ export default function PresenceList() {
           <MenuItem value="yesterday">Hier</MenuItem>
         </TextField>
 
-        <Button variant="outlined" startIcon={<PictureAsPdfIcon />} className="normal-case ml-auto">
+        <Button
+          variant="outlined"
+          startIcon={<PictureAsPdfIcon />}
+          className="normal-case ml-auto"
+        >
           Exporter en PDF
         </Button>
 
@@ -164,7 +145,21 @@ export default function PresenceList() {
         >
           Exporter en Excel
         </Button>
+
+        {/* ---- BOUTON OUVERTURE MODAL ---- */}
+        <button
+          onClick={() => setOpenAddModal(true)}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+        >
+          ➕ Ajouter un étudiant
+        </button>
       </div>
+
+      {/* ---- MODAL ---- */}
+      <AddStudentModal
+        open={openAddModal}
+        onClose={() => setOpenAddModal(false)}
+      />
 
       {/* TABLE */}
       <div className="bg-white rounded-xl shadow overflow-hidden">
@@ -180,7 +175,7 @@ export default function PresenceList() {
           </thead>
 
           <tbody>
-            {presenceData.map((row) => (
+            {data.map((row) => (
               <tr key={row.id} className="border-t hover:bg-gray-50">
                 <td className="py-4 px-6 flex items-center gap-3">
                   <Avatar src={row.avatar} />
