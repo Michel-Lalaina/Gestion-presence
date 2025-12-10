@@ -1,5 +1,5 @@
 // src/components/AddStudentModal.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   TextField,
   Button,
@@ -58,7 +58,7 @@ export default function AddStudentModal({
   };
 
   const handleSave = () => {
-    // ici tu peux appeler API POST ou appeler une prop onSave
+    //  API POST ou appeler une prop onSave
     console.log("Données envoyées :", form);
     onClose();
   };
