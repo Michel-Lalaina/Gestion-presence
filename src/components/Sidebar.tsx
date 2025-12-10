@@ -64,6 +64,17 @@ export const Side: React.FC = () => {
                     <SettingsIcon /> Paramètres
                 </NavLink>
 
+
+                <NavLink
+                    to="/utilisateurs"
+                    className={({ isActive }) =>
+                        `flex items-center gap-3 cursor-pointer ${
+                            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+                        }`
+                    }
+                >
+                    <SettingsIcon /> Utilisateurs
+                </NavLink>
             </nav>
 
             {/* LOGOUT BUTTON */}
