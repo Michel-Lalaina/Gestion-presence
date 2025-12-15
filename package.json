@@ -27,7 +27,7 @@
     "react-qr-code": "^2.0.18",
     "react-router-dom": "^7.1.5",
     "react-scroll": "^1.9.2",
-    "react-toastify": "^11.0.2",
+    "react-toastify": "^11.0.5",
     "react-tsparticles": "^2.12.2",
     "reactdom": "^2.0.0",
     "recharts": "^2.15.4",

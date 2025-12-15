@@ -26,8 +26,6 @@ interface Presence {
   statut: string;
 }
 
-import AddStudentModal from "../components/AddStudentModal";
-
 // ---- SIMULE API ----
 const fakePresence: Presence[] = [
   {
@@ -72,8 +70,7 @@ export default function PresenceList() {
   const [data, setData] = useState<Presence[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // État du modal
-  const [openAddModal, setOpenAddModal] = useState(false);
+
 
   useEffect(() => {
     fetchPresence().then((d) => {
@@ -145,20 +142,9 @@ export default function PresenceList() {
           Exporter en Excel
         </Button>
 
-        {/* ---- BOUTON OUVERTURE MODAL ---- */}
-        <button
-          onClick={() => setOpenAddModal(true)}
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
-        >
-          ➕ Ajouter un étudiant
-        </button>
+
       </div>
 
-      {/* ---- MODAL ---- */}
-      <AddStudentModal
-        open={openAddModal}
-        onClose={() => setOpenAddModal(false)}
-      />
 
       {/* TABLE */}
       <div className="bg-white rounded-xl shadow overflow-hidden">

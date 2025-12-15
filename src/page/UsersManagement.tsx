@@ -4,30 +4,30 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function UsersManagement() {
   const users = [
     {
-      name: "Alice Martin",
+      name: "Michel Lalaina",
       role: "Admin",
-      email: "alice.martin@example.com",
+      email: "michelramanantenasoa@gmail.com",
       lastLogin: "15/10/2023 à 14h30",
       roleColor: "bg-green-200 text-green-700",
     },
     {
-      name: "Bob Lefebvre",
+      name: "Aro mampianina",
       role: "Enseignant",
-      email: "bob.lefebvre@example.com",
+      email: "aroniaina@gmail.com",
       lastLogin: "14/10/2023 à 09h15",
       roleColor: "bg-blue-200 text-blue-700",
     },
     {
-      name: "Carla Dubois",
+      name: "Carole",
       role: "Enseignant",
-      email: "carla.dubois@example.com",
+      email: "carolrina@gmail.com",
       lastLogin: "Hier à 11h00",
       roleColor: "bg-blue-200 text-blue-700",
     },
     {
-      name: "David Petit",
+      name: "Synand Mario",
       role: "Enseignant",
-      email: "david.petit@example.com",
+      email: "synand35@gmail.com",
       lastLogin: "Aujourd'hui à 08h45",
       roleColor: "bg-blue-200 text-blue-700",
     },
