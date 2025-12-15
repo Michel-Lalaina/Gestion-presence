@@ -11,7 +11,7 @@ const placeholderQR = "https://api.qrserver.com/v1/create-qr-code/?size=120x120&
 const studentsData = [
     {
         id: 1,
-        fullName: "Marie Curie",
+        fullName: "Michelle Annicka",
         matricule: "E23456789",
         mention: "Physique",
         parcours: "Physique Nucléaire",
@@ -22,7 +22,7 @@ const studentsData = [
     },
     {
         id: 2,
-        fullName: "Jean Dupont",
+        fullName: "Aro Mampianina",
         matricule: "E12345678",
         mention: "Informatique",
         parcours: "Génie Logiciel",
@@ -33,7 +33,7 @@ const studentsData = [
     },
     {
         id: 3,
-        fullName: "Albert Einstein",
+        fullName: "Toky Nomena",
         matricule: "E34567890",
         mention: "Physique",
         parcours: "Théorique",
@@ -44,7 +44,7 @@ const studentsData = [
     },
     {
         id: 4,
-        fullName: "Ada Lovelace",
+        fullName: "Mario",
         matricule: "E56789012",
         mention: "Mathématiques",
         parcours: "Algorithmique",
