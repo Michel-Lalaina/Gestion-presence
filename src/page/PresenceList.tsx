@@ -3,7 +3,6 @@ import {
   TextField,
   MenuItem,
   Avatar,
-  Pagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
@@ -17,10 +16,12 @@ const statusColors: Record<string, string> = {
 };
 
 interface Presence {
+
   id: number;
   name: string;
   avatar: string;
   cours: string;
+  date: string;
   entree: string;
   sortie: string;
   statut: string;
@@ -33,15 +34,17 @@ const fakePresence: Presence[] = [
     name: "Léa Dubois",
     avatar: "https://i.pravatar.cc/150?img=32",
     cours: "Développement Web",
+    date: "2025-10-14",
     entree: "09:02",
     sortie: "11:58",
-    statut: "Présent",
+    statut: "Retard",
   },
   {
     id: 2,
     name: "Marc Petit",
     avatar: "https://i.pravatar.cc/150?img=15",
     cours: "Bases de Données",
+    date: "2025-10-14",
     entree: "-",
     sortie: "-",
     statut: "Absent",
@@ -51,11 +54,13 @@ const fakePresence: Presence[] = [
     name: "Chloé Martin",
     avatar: "https://i.pravatar.cc/150?img=45",
     cours: "Développement Web",
-    entree: "09:12",
-    sortie: "12:01",
-    statut: "Retard",
+    date: "2025-10-13",
+    entree: "10:30",
+    sortie: "10:45",
+    statut: "Sortie urgence",
   },
 ];
+
 
 export function fetchPresence(): Promise<Presence[]> {
   return new Promise((resolve) => {
@@ -90,7 +95,7 @@ export default function PresenceList() {
   return (
     <div className="flex flex-col w-full px-10 py-8">
       {/* TITLE */}
-      <h1 className="text-4xl font-extrabold mb-8">Liste des Présences</h1>
+      <h1 className="text-4xl font-extrabold mb-8">Liste des Absences et retards</h1>
 
       {/* FILTER BAR */}
       <div className="w-full bg-white rounded-xl shadow p-5 flex flex-wrap gap-3 items-center mb-8">
@@ -142,6 +147,9 @@ export default function PresenceList() {
           Exporter en Excel
         </Button>
 
+        <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium flex items-center gap-2">
+          <span className="text-xl">＋</span>  Scanner presence
+        </button>
 
       </div>
 
@@ -152,6 +160,7 @@ export default function PresenceList() {
           <thead className="bg-gray-100 text-gray-600 text-left text-sm">
             <tr>
               <th className="py-4 px-6">Étudiant</th>
+               <th className="py-4 px-6">Date</th>
               <th className="py-4 px-6">Cours</th>
               <th className="py-4 px-6">Heure d’entrée</th>
               <th className="py-4 px-6">Heure de sortie</th>
@@ -166,7 +175,7 @@ export default function PresenceList() {
                   <Avatar src={row.avatar} />
                   <span className="font-medium">{row.name}</span>
                 </td>
-
+  <td className="py-4 px-6">{row.date}</td>
                 <td className="py-4 px-6">{row.cours}</td>
                 <td className="py-4 px-6">{row.entree}</td>
                 <td className="py-4 px-6">{row.sortie}</td>
@@ -182,13 +191,6 @@ export default function PresenceList() {
             ))}
           </tbody>
         </table>
-
-        {/* FOOTER */}
-        <div className="flex items-center justify-between px-6 py-4 text-sm text-gray-600">
-          <span>Affichage de 1–5 sur 100</span>
-
-          <Pagination count={3} page={2} siblingCount={0} boundaryCount={1} color="primary" />
-        </div>
       </div>
     </div>
   );

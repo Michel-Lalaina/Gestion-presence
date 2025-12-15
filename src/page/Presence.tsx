@@ -6,12 +6,17 @@ import AddStudentModal from "../components/AddStudentModal";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import StudentQRModal from "../components/StudentQRModal";
+
 
 const placeholderQR =
     "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=demo";
 
 export default function StudentCardsPage() {
     const [openAddModal, setOpenAddModal] = useState(false);
+    const [openQRModal, setOpenQRModal] = useState(false);
+    const [selectedStudent, setSelectedStudent] = useState<any>(null);
+
 
     const [students, setStudents] = useState([
         {
@@ -67,14 +72,14 @@ export default function StudentCardsPage() {
         ]);
     };
 
-  const handleDownload = () => {
-    toast.success("Telechargement succès mais pas disponible pour le moment!");
+    const handleDownload = () => {
+        toast.success("Telechargement succès mais pas disponible pour le moment!");
 
-  };
+    };
 
     return (
         <div className="flex w-full min-h-screen bg-gray-50">
-             <ToastContainer position="top-right" autoClose={5000} />
+            <ToastContainer position="top-right" autoClose={5000} />
             <main className="flex-1 p-10">
                 <div className="flex justify-between items-center mb-10">
                     <h1 className="text-4xl font-extrabold">Cartes d’étudiant</h1>
@@ -133,9 +138,14 @@ export default function StudentCardsPage() {
                                     variant="outlined"
                                     startIcon={<QrCodeIcon />}
                                     className="normal-case border-gray-400 text-gray-700"
+                                    onClick={() => {
+                                        setSelectedStudent(student);
+                                        setOpenQRModal(true);
+                                    }}
                                 >
                                     Générer QR
                                 </Button>
+
 
                                 <Button
                                     variant="contained"
@@ -150,6 +160,16 @@ export default function StudentCardsPage() {
                     ))}
                 </div>
             </main>
+            {selectedStudent && (
+                <StudentQRModal
+                    open={openQRModal}
+                    onClose={() => setOpenQRModal(false)}
+                    matricule={selectedStudent.matricule}
+                    fullName={selectedStudent.fullName}
+                />
+            )}
+
         </div>
+
     );
 }
