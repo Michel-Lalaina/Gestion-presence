@@ -226,6 +226,7 @@ export default function PresenceList() {
           variant="outlined"
           startIcon={<PictureAsPdfIcon />}
           className="normal-case ml-auto"
+            onClick={handleExcel}
         >
           Exporter en PDF
         </Button>
