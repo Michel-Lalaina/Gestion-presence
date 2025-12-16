@@ -9,8 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import StudentQRModal from "../components/StudentQRModal";
 
 
-const placeholderQR =
-    "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=demo";
+const placeholderQR = "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=demo";
 
 export default function StudentCardsPage() {
     const [openAddModal, setOpenAddModal] = useState(false);

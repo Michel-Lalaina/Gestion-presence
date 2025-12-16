@@ -2,15 +2,24 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import QrCodeIcon from "@mui/icons-material/QrCode";
-import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
+import { AdminPanelSettings } from "@mui/icons-material";
+
+import { useNavigate } from "react-router-dom";
+
+
 export const Side: React.FC = () => {
+      const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/login");
+  };
     return (
         <aside className="h-screen bg-white shadow-sm flex flex-col px-6 py-8 fixed ">
 
             {/* LOGO */}
-            <div className="flex items-center gap-3 mb-10">
+            <div className="flex items-center gap-3 mb-10"> 
                 <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white">
                     QR
                 </div>
@@ -21,10 +30,9 @@ export const Side: React.FC = () => {
             <nav className="flex flex-col gap-4 text-gray-700">
 
                 <NavLink
-                    to="/"
+                    to="/dashboard"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${
-                            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
                         }`
                     }
                 >
@@ -34,8 +42,7 @@ export const Side: React.FC = () => {
                 <NavLink
                     to="/etudiants"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${
-                            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
                         }`
                     }
                 >
@@ -45,8 +52,7 @@ export const Side: React.FC = () => {
                 <NavLink
                     to="/presences"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${
-                            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
                         }`
                     }
                 >
@@ -54,38 +60,35 @@ export const Side: React.FC = () => {
                 </NavLink>
 
                 <NavLink
+                    to="/utilisateurs"
+                    className={({ isActive }) =>
+                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+                        }`
+                    }
+                >
+                    <AdminPanelSettings /> Utilisateurs
+                </NavLink>
+
+                <NavLink
                     to="/parametres"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${
-                            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
                         }`
                     }
                 >
                     <SettingsIcon /> Paramètres
                 </NavLink>
-
-
-                <NavLink
-                    to="/utilisateurs"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${
-                            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
-                        }`
-                    }
-                >
-                    <SettingsIcon /> Utilisateurs
-                </NavLink>
             </nav>
 
             {/* LOGOUT BUTTON */}
             <div className="mt-auto">
-                <Button
-                    fullWidth
-                    variant="contained"
-                    className="normal-case bg-gray-300 text-gray-900 hover:bg-gray-400"
-                >
-                    Se déconnecter
-                </Button>
+                      <button
+        onClick={handleLogout} // <-- redirection vers Login
+        className="normal-case bg-purple-500 text-white hover:bg-purple-700"
+      >
+        Se déconnecter
+       </button>
+
             </div>
         </aside>
     );

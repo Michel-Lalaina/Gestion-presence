@@ -23,7 +23,7 @@ export default function StatsCards() {
     },
     {
       title: "Absences Totales",
-      value: "38",
+      value: "3",
       icon: <HighlightOffIcon className="text-red-500" />,
     },
   ];

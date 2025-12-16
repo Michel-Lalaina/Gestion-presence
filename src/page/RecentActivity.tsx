@@ -2,6 +2,8 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const activities = [
   {
@@ -34,14 +36,22 @@ const activities = [
   },
 ];
 
+    const handleDownload = () => {
+        toast.error("Exportation pas disponible pour votre mode veuillez visiter la présences!");
+
+    };
+
 export default function RecentActivity() {
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <ToastContainer position="top-right" autoClose={5000} />
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Activité Récente</h2>
 
-        <button className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700">
+        <button  onClick={handleDownload} className=" bg-purple-400 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700">
+             
           <DescriptionIcon fontSize="small" />
+          
           Générer Rapport
         </button>
       </div>
