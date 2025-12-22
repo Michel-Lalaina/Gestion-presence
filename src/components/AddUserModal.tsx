@@ -69,10 +69,10 @@ export default function AddUserModal({
       />
     </div>
 
-    <div className="flex justify-end gap-3 mt-6">
+    <div className="flex text-white justify-end gap-3 mt-6">
       <button
         onClick={onClose}
-        className="px-4 py-2 rounded-lg border"
+         className="px-4 py-2 rounded-lg bg-black text-white"
       >
         Annuler
       </button>
