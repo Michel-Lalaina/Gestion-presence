@@ -2,7 +2,6 @@ import StatsCards from "../components/Dashboard/StatsCards";
 import PresenceChart from "../components/Dashboard/PresenceChart";
 import RecentActivity from "./RecentActivity";
 
-
   
 export default function Dashboard() {
 

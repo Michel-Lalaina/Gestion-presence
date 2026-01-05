@@ -62,7 +62,7 @@ const Login: React.FC = () => {
         </div>
 
         {/* Right Side - Illustration */}
-        <div className="hidden md:block md:w-1/2 bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center">
+        <div className=" md:block md:w-1/2 bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center">
           <img
             src={LoginImage}
             alt="Login Illustration"
