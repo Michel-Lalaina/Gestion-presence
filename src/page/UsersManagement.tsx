@@ -6,7 +6,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface User {
-  name: string;
+  firstname: string;
+  lastname: string;
+  tel: string;
   role: string;
   email: string;
   lastLogin: string;
@@ -14,39 +16,48 @@ interface User {
 }
 
 type NewUser = {
-  name: string;
+  firstname: string;
+  lastname: string;
+  tel: string;
   role: string;
   email: string;
 };
-
 
 const USERS_PER_PAGE = 2;
 
 export default function UsersManagement() {
   const [users, setUsers] = useState<User[]>([
     {
-      name: "Michel Lalaina",
+      firstname: "Michel",
+      lastname: "Lalaina",
+      tel: "00000000",
       role: "Admin",
       email: "michelramanantenasoa@gmail.com",
       lastLogin: "15/10/2023 à 14h30",
       roleColor: "bg-green-200 text-green-700",
     },
     {
-      name: "Aro mampianina",
+      firstname: "Aro",
+      lastname: "Mampianina",
+      tel: "00000000",
       role: "Enseignant",
       email: "aroniaina@gmail.com",
       lastLogin: "14/10/2023 à 09h15",
       roleColor: "bg-blue-200 text-blue-700",
     },
     {
-      name: "Carole",
+      firstname: "Carole",
+      lastname: "",
+      tel: "00000000",
       role: "Enseignant",
       email: "carolrina@gmail.com",
       lastLogin: "Hier à 11h00",
       roleColor: "bg-blue-200 text-blue-700",
     },
     {
-      name: "Synand Mario",
+      firstname: "Synand",
+      lastname: "Mario",
+      tel: "00000000",
       role: "Enseignant",
       email: "synand35@gmail.com",
       lastLogin: "Aujourd'hui à 08h45",
@@ -64,31 +75,27 @@ export default function UsersManagement() {
     currentPage * USERS_PER_PAGE
   );
 
-    const handleFunction = () => {
-        toast.error("Seule l'administrateur à cette fonctionnnalité!");
-
-    };
-
-const handleAddUser = (user: NewUser) => {
-  const completedUser: User = {
-    ...user,
-    lastLogin: "À l’instant",
-    roleColor:
-      user.role === "Admin"
-        ? "bg-green-200 text-green-700"
-        : "bg-blue-200 text-blue-700",
+  const handleFunction = () => {
+    toast.error("Seule l'administrateur à cette fonctionnalité!");
   };
 
-  setUsers((prev) => [...prev, completedUser]);
-  setOpenModal(false);
-  setCurrentPage(Math.ceil((users.length + 1) / USERS_PER_PAGE));
-};
+  const handleAddUser = (user: NewUser) => {
+    const completedUser: User = {
+      ...user,
+      lastLogin: "À l’instant",
+      roleColor:
+        user.role === "Admin"
+          ? "bg-green-200 text-green-700"
+          : "bg-blue-200 text-blue-700",
+    };
 
+    setUsers((prev) => [...prev, completedUser]);
+    setOpenModal(false);
+    setCurrentPage(Math.ceil((users.length + 1) / USERS_PER_PAGE));
+  };
 
   return (
-    
     <div className={`w-full flex flex-col gap-8`}>
-    
       {/* TITLE + BUTTON */}
       <div className="flex items-center justify-between">
         <ToastContainer position="top-right" autoClose={5000} />
@@ -108,6 +115,7 @@ const handleAddUser = (user: NewUser) => {
           <thead>
             <tr className="text-gray-500 text-sm font-semibold border-b">
               <th className="py-3 text-left">NOM</th>
+              <th className="py-3 text-left">TÉL</th>
               <th className="py-3 text-left">RÔLE</th>
               <th className="py-3 text-left">EMAIL</th>
               <th className="py-3 text-left">DERNIÈRE CONNEXION</th>
@@ -118,10 +126,16 @@ const handleAddUser = (user: NewUser) => {
           <tbody>
             {paginatedUsers.map((u, index) => (
               <tr key={index} className="border-b hover:bg-gray-50 transition">
-                <td className="py-4 font-medium">{u.name}</td>
+                <td className="py-4 font-medium">
+                  {u.firstname} {u.lastname}
+                </td>
+
+                <td className="text-gray-700">{u.tel}</td>
 
                 <td>
-                  <span className={`px-3 py-1 rounded-full text-sm ${u.roleColor}`}>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm ${u.roleColor}`}
+                  >
                     {u.role}
                   </span>
                 </td>
@@ -131,11 +145,13 @@ const handleAddUser = (user: NewUser) => {
 
                 <td>
                   <div className="flex gap-4">
-                    <EditIcon className="text-green-600 cursor-pointer :" 
-                    onClick={handleFunction}
+                    <EditIcon
+                      className="text-green-600 cursor-pointer"
+                      onClick={handleFunction}
                     />
-                    <DeleteIcon className="text-red-600 cursor-pointer " 
-                    onClick={handleFunction}
+                    <DeleteIcon
+                      className="text-red-600 cursor-pointer"
+                      onClick={handleFunction}
                     />
                   </div>
                 </td>
@@ -159,7 +175,11 @@ const handleAddUser = (user: NewUser) => {
             key={i}
             onClick={() => setCurrentPage(i + 1)}
             className={`w-10 h-10 rounded-full flex items-center justify-center 
-            ${currentPage === i + 1 ? "bg-green-600 text-white" : "bg-white border"}`}
+            ${
+              currentPage === i + 1
+                ? "bg-green-600 text-white"
+                : "bg-white border"
+            }`}
           >
             {i + 1}
           </button>
@@ -174,13 +194,11 @@ const handleAddUser = (user: NewUser) => {
       </div>
 
       {/* MODALE */}
-<AddUserModal
-  open={openModal}
-  onClose={() => setOpenModal(false)}
-  onSave={handleAddUser}
-/>
-
-
+      <AddUserModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onSave={handleAddUser}
+      />
     </div>
   );
 }

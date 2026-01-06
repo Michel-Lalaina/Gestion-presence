@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 interface NewUser {
-  name: string;
+  firstname: string;
+  lastname: string;
+  tel: string;
   role: string;
   email: string;
 }
@@ -17,75 +19,87 @@ export default function AddUserModal({
   onClose,
   onSave,
 }: AddUserModalProps) {
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [tel, setTel] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
 
   if (!open) return null;
 
   const handleSave = () => {
-    if (!name || !role || !email) return;
+    if (!fullName || !tel || !role || !email) return;
+
+    // Séparation prénom + nom
+    const parts = fullName.trim().split(" ");
+    const firstname = parts.slice(0, -1).join(" ");
+    const lastname = parts.slice(-1).join("");
 
     onSave({
-      name,
+      firstname,
+      lastname,
+      tel,
       role,
       email,
     });
 
-    setName("");
+    setFullName("");
+    setTel("");
     setRole("");
     setEmail("");
     onClose();
   };
 
   return (
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10 backdrop-blur-sm">
-  {/* MODALE SEULE — AUCUN BACKDROP */}
-  <div className="bg-white rounded-xl p-6 w-[420px] shadow-xl">
-    <h2 className="text-xl font-bold mb-4">
-      Ajouter un utilisateur
-    </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10 backdrop-blur-sm">
+      <div className="bg-white rounded-xl p-6 w-[420px] shadow-xl">
+        <h2 className="text-xl font-bold mb-4">Ajouter un utilisateur</h2>
 
-    <div className="flex flex-col gap-4">
-      <input
-        placeholder="Nom complet"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="border rounded-lg px-4 py-2"
-      />
+        <div className="flex flex-col gap-4">
+          <input
+            placeholder="Nom complet (Prénoms Nom)"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          />
 
-      <input
-        placeholder="Rôle (Admin / Enseignant)"
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
-        className="border rounded-lg px-4 py-2"
-      />
+          <input
+            placeholder="Téléphone"
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          />
 
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border rounded-lg px-4 py-2"
-      />
+          <input
+            placeholder="Rôle (Admin / Enseignant)"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          />
+
+          <input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          />
+        </div>
+
+        <div className="flex text-white justify-end gap-3 mt-6">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 rounded-lg bg-black text-white"
+          >
+            Annuler
+          </button>
+
+          <button
+            onClick={handleSave}
+            className="px-4 py-2 rounded-lg bg-green-600 text-white"
+          >
+            Ajouter
+          </button>
+        </div>
+      </div>
     </div>
-
-    <div className="flex text-white justify-end gap-3 mt-6">
-      <button
-        onClick={onClose}
-         className="px-4 py-2 rounded-lg bg-black text-white"
-      >
-        Annuler
-      </button>
-
-      <button
-        onClick={handleSave}
-        className="px-4 py-2 rounded-lg bg-green-600 text-white"
-      >
-        Ajouter
-      </button>
-    </div>
-  </div>
-</div>
-
   );
 }
