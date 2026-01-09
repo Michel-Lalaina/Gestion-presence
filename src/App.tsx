@@ -23,7 +23,7 @@
 // export default App;
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import StudentCardsPage from "./page/Presence";
+import StudentCardsPage from "./page/EleveList";
 import PresenceList from "./page/PresenceList";
 import MainLayout from "./layouts/mainLayout";
 import Dashboard from "./page/Dashboard";

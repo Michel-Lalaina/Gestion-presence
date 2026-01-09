@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-200 w-screen">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-300 w-screen">
       <div className="bg-white shadow-2xl rounded-3xl flex flex-col md:flex-row overflow-hidden max-w-4xl w-full">
 
         {/* Left Side - Form */}

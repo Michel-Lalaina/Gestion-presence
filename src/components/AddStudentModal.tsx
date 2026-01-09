@@ -1,15 +1,12 @@
 // src/components/AddStudentModal.tsx
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { createEtudiant } from "../services/Eleve";
+
 import "react-toastify/dist/ReactToastify.css";
 
 import {
-  TextField,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
+  TextField, Button, Dialog, DialogContent, DialogTitle, IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import QRCode from "react-qr-code";
@@ -64,17 +61,33 @@ export default function AddStudentModal({
     }));
   };
 
-  const handleSave = () => {
-    if (!form.nom.trim() || !form.matricule.trim()) {
-      toast.error("Information obligatoire non remplie");
-      return;
-    }
 
+  const handleSave = async () => {
+  if (!form.nom.trim() || !form.matricule.trim()) {
+    toast.error("Information obligatoire non remplie");
+    return;
+  }
+
+  try {
+    await createEtudiant({
+      matricule: form.matricule,
+      nom: form.nom,
+      prenom: form.prenoms,
+      date_naissance: form.naissance,
+      mention: form.mention,
+      parcours: form.parcours,
+      niveau: form.niveau,
+    });
 
     toast.success("Étudiant ajouté avec succès !");
-      onSave(form); 
+    onSave(form);
     onClose();
-  };
+  } catch (error) {
+    toast.error("Erreur lors de l’enregistrement");
+    console.error(error);
+  }
+};
+
 
   return (
     <>

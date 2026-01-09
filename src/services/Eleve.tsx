@@ -1,34 +1,23 @@
-const API_URL = "http://127.0.0.1:8000";
 import axios from "axios";
 
-export const ElevGet = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/eleveLists`)
-    return response.data
-  } catch (error) {
-    console.error("Erreur lors de la récupération des eleves", error);
-    throw error;
-  }
-}
-export const createEleve = async (
-  name: string,
-  cours: string,
-  statut: string,
-  heureEntree: string,
-  heureSortie: string
-) => {
-  try {
-    const response = await axios.post(`${API_URL}/eleveCreate`, {
-      name,
-      cours,
-      statut,
-      heureEntree,
-      heureSortie,
-    });
+const API_URL = "http://localhost:5000/api/etudiants";
 
-    return response.data;
-  } catch (error) {
-    console.error("Erreur lors de la création de l'élève :", error);
-    throw error;
-  }
+/* GET */
+export const getEtudiants = async () => {
+  const { data } = await axios.get(API_URL);
+  return data;
+};
+
+/* POST */
+export const createEtudiant = async (payload: {
+  matricule: string;
+  nom: string;
+  prenom: string;
+  date_naissance: string;
+  mention: string;
+  parcours: string;
+  niveau: string;
+}) => {
+  const { data } = await axios.post(API_URL, payload);
+  return data;
 };
