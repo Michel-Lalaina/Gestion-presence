@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/etudiants";
+const API_URL = "http://localhost:8000/api/etudiants/";
 
 /* GET */
 export const getEtudiants = async () => {
   const { data } = await axios.get(API_URL);
-  return data;
+  return data.etudiants;
 };
 
 /* POST */

@@ -5,6 +5,7 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const statusColors: Record<string, string> = {
   Présent: "bg-green-600 text-white",
@@ -99,12 +100,16 @@ const fakePresence: Presence[] = [
 ];
 
 
-export function fetchPresence(): Promise<Presence[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(fakePresence), 800);
-  });
+export async function fetchPresence(): Promise<Presence[]> {
+  try {
+    const response = await axios.get("http://localhost:8000/api/presences");
+    const presences = response.data.presences as Presence[];
+    return new Promise(resolve => setTimeout(() => resolve(presences), 800));
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
-
 // ------------------- COMPONENT ----------------------
 
 
