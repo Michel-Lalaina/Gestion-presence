@@ -68,6 +68,7 @@ export default function AddStudentModal({
     return;
   }
 
+  
   try {
     await createEtudiant({
       matricule: form.matricule,
