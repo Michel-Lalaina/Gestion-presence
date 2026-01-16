@@ -1,17 +1,16 @@
 import axios from "axios";
+import { API_BASE_URL } from "../../config"; // ← on importe l'URL de config
 
+// Fonction pour construire l'URL complète pour un endpoint donné
+const getApiUrl = (endpoint: string) => `${API_BASE_URL}/${endpoint}`;
 
-const API_URL = "http://localhost:5000/api/etudiants";
-
-
-/* GET */
+/* GET Etudiants */
 export const getEtudiants = async () => {
-  const { data } = await axios.get(API_URL);
+  const { data } = await axios.get(getApiUrl("etudiants"));
   return data;
 };
 
-
-/* POST */
+/* POST Etudiant */
 export const createEtudiant = async (payload: {
   matricule: string;
   nom: string;
@@ -21,7 +20,6 @@ export const createEtudiant = async (payload: {
   parcours: string;
   niveau: string;
 }) => {
-
-  const { data } = await axios.post(API_URL, payload);
+  const { data } = await axios.post(getApiUrl("etudiants"), payload);
   return data;
 };
