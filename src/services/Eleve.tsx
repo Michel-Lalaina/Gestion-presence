@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "../../config"; // ← on importe l'URL de config
+import { API_BASE_URL } from "../config"; // ← on importe l'URL de config
 
 // Fonction pour construire l'URL complète pour un endpoint donné
 const getApiUrl = (endpoint: string) => `${API_BASE_URL}/${endpoint}`;
