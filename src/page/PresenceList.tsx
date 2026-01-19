@@ -34,6 +34,16 @@ export default function PresenceList() {
   const [showAll, setShowAll] = useState(false);
   const [openCamera, setOpenCamera] = useState(false);
 
+  const [openPresenceModal, setOpenPresenceModal] = useState(false);
+
+  const [presenceForm, setPresenceForm] = useState({
+    cours: "",
+    heureDebut: new Date().toISOString().slice(0, 16),
+    heureLimite: "",
+    heureFin: "",
+  });
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,8 +77,8 @@ export default function PresenceList() {
     fetchData();
   }, []);
 
-  
-//Filtrage
+
+  //Filtrage
   const today = new Date().toISOString().split("T")[0];
   const yesterday = new Date(Date.now() - 86400000)
     .toISOString()
@@ -159,14 +169,22 @@ export default function PresenceList() {
           Exporter en PDF
         </Button>
 
-        <Button
+        {/* <Button
           variant="contained"
           startIcon={<GridOnIcon />}
           className="normal-case bg-green-600 hover:bg-green-700"
           onClick={handleExcel}
         >
           Exporter en Excel
-        </Button>
+        </Button> */}
+
+        <button
+          onClick={() => setOpenPresenceModal(true)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium" >
+            <span className="text-xl">＋</span> 
+          Nouvel Présence
+        </button>
+
 
         <button
           onClick={() => {
@@ -251,6 +269,78 @@ export default function PresenceList() {
           </div>
         </div>
       )}
+
+
+      {openPresenceModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl w-[450px] p-6 relative shadow-xl">
+            <h2 className="text-xl font-bold mb-4">Nouvelle séance de présence</h2>
+
+            <div className="flex flex-col gap-4">
+              <TextField
+                label="Cours / Activité"
+                fullWidth
+                value={presenceForm.cours}
+                onChange={(e) =>
+                  setPresenceForm({ ...presenceForm, cours: e.target.value })
+                }
+              />
+
+              <TextField
+                label="Heure de début"
+                type="datetime-local"
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                value={presenceForm.heureDebut}
+                disabled
+              />
+
+              <TextField
+                label="Heure limite de retard"
+                type="time"
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                value={presenceForm.heureLimite}
+                onChange={(e) =>
+                  setPresenceForm({ ...presenceForm, heureLimite: e.target.value })
+                }
+              />
+
+              <TextField
+                label="Heure de fin"
+                type="time"
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                value={presenceForm.heureFin}
+                onChange={(e) =>
+                  setPresenceForm({ ...presenceForm, heureFin: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6">
+              <Button
+                variant="outlined"
+                onClick={() => setOpenPresenceModal(false)}
+              >
+                Annuler
+              </Button>
+
+              <Button
+                variant="contained"
+                className="bg-green-600 hover:bg-green-700"
+                onClick={() => {
+                  toast.success("Séance de présence créée");
+                  setOpenPresenceModal(false);
+                }}
+              >
+                Valider
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
