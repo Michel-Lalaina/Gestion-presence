@@ -5,7 +5,7 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getListPresence } from "../services/PresenceList";
+import { getListPresence } from "../services/Eleve";
 
 const statusColors: Record<string, string> = {
   Présent: "bg-green-600 text-white",

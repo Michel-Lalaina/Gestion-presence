@@ -1,16 +1,30 @@
+// src/services/ELEVE.ts
+
 import axios from "axios";
-import { API_BASE_URL } from "../config"; // ← on importe l'URL de config
+import { API_BASE_URL } from "../config";
 
 // Fonction pour construire l'URL complète pour un endpoint donné
-const getApiUrl = (endpoint: string) => `${API_BASE_URL}/${endpoint}`;
+const ApiUrl = (endpoint: string) => `${API_BASE_URL}/${endpoint}`;
 
-/* GET Etudiants */
+// Get Listes présences
+export const getListPresence = async () => {
+  try {
+    const response = await axios.get(ApiUrl("presences"));
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la récupération du list présences", error);
+    throw error;
+  }
+};
+
+
+/* GET */
 export const getEtudiants = async () => {
-  const { data } = await axios.get(getApiUrl("etudiants"));
+  const { data } = await axios.get(ApiUrl("etudiants"));
   return data;
 };
 
-/* POST Etudiant */
+/* POST */
 export const createEtudiant = async (payload: {
   matricule: string;
   nom: string;
@@ -20,6 +34,18 @@ export const createEtudiant = async (payload: {
   parcours: string;
   niveau: string;
 }) => {
-  const { data } = await axios.post(getApiUrl("etudiants"), payload);
+  const { data } = await axios.post(ApiUrl("etudiants"), payload);
   return data;
 };
+
+//stat
+export const GetNumber =async()=>{
+    try{
+const response = await axios.get(ApiUrl("eleveNumber") )
+   return response.data;
+    } catch(error){
+  console.error("Erreur lors de la récuperation du nombre eleves", error);
+    throw error;
+    }
+    
+}

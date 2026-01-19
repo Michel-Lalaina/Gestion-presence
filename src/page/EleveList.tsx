@@ -5,7 +5,6 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { useCallback, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import AddStudentModal from "../components/AddStudentModal";
 import StudentQRModal from "../components/StudentQRModal";
 import { getEtudiants } from "../services/Eleve";
