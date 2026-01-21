@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import LoginImage from "../assets/images/terre.png";
+import LoginImage from "../assets/images/time-attendance.jpg";
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
