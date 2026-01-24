@@ -21,7 +21,9 @@ export const getListPresence = async () => {
 /* GET */
 export const getEtudiants = async () => {
   const { data } = await axios.get(ApiUrl("etudiants"));
-  return data;
+  console.log(data);
+  
+  return data.etudiants;
 };
 
 /* POST */
