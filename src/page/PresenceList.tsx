@@ -5,7 +5,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getListPresence } from "../services/Eleve";
+import { getListPresence, createPresenceSession } from "../services/Eleve";
 
 const statusColors: Record<string, string> = {
   Présent: "bg-green-600 text-white",
@@ -169,19 +169,10 @@ export default function PresenceList() {
           Exporter en PDF
         </Button>
 
-        {/* <Button
-          variant="contained"
-          startIcon={<GridOnIcon />}
-          className="normal-case bg-green-600 hover:bg-green-700"
-          onClick={handleExcel}
-        >
-          Exporter en Excel
-        </Button> */}
-
         <button
           onClick={() => setOpenPresenceModal(true)}
           className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium" >
-            <span className="text-xl">＋</span> 
+          <span className="text-xl">＋</span>
           Nouvel Présence
         </button>
 
@@ -329,13 +320,44 @@ export default function PresenceList() {
               <Button
                 variant="contained"
                 className="bg-green-600 hover:bg-green-700"
-                onClick={() => {
-                  toast.success("Séance de présence créée");
-                  setOpenPresenceModal(false);
+                onClick={async () => {
+                  if (
+                    !presenceForm.cours.trim() ||
+                    !presenceForm.heureLimite ||
+                    !presenceForm.heureFin
+                  ) {
+                    toast.error("Veuillez remplir tous les champs");
+                    return;
+                  }
+
+                  try {
+                    await createPresenceSession({
+                      cours: presenceForm.cours,
+                      heure_debut: presenceForm.heureDebut,
+                      heure_limite_retard: presenceForm.heureLimite,
+                      heure_fin: presenceForm.heureFin,
+                    });
+
+                    toast.success("Séance de présence créée avec succès");
+
+                    setOpenPresenceModal(false);
+
+                    // reset propre
+                    setPresenceForm({
+                      cours: "",
+                      heureDebut: new Date().toISOString().slice(0, 16),
+                      heureLimite: "",
+                      heureFin: "",
+                    });
+                  } catch (error) {
+                    console.error(error);
+                    toast.error("Erreur lors de la création de la séance");
+                  }
                 }}
               >
                 Valider
               </Button>
+
             </div>
           </div>
         </div>

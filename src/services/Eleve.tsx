@@ -1,9 +1,9 @@
-// src/services/ELEVE.ts
+// src/services/eleve.ts
 
 import axios from "axios";
 import { API_BASE_URL } from "../config";
 
-// Fonction pour construire l'URL complète pour un endpoint donné
+// Fonction construi l'URL complète pour un endpoint donné
 const ApiUrl = (endpoint: string) => `${API_BASE_URL}/${endpoint}`;
 
 // Get Listes présences
@@ -17,6 +17,15 @@ export const getListPresence = async () => {
   }
 };
 
+export const createPresenceSession = async(payload: {
+  cours: string;
+  heure_debut: string;
+  heure_limite_retard: string;
+  heure_fin: string;
+})=>{
+  const{data} = await axios.post(ApiUrl("startPresence"), payload);
+  return data;
+};
 
 /* GET */
 export const getEtudiants = async () => {
