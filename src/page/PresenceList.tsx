@@ -29,7 +29,6 @@ interface Presence {
 
 export default function PresenceList() {
   const [data, setData] = useState<Presence[]>([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [courseFilter, setCourseFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("all");
@@ -71,8 +70,6 @@ export default function PresenceList() {
       } catch (error) {
         toast.error("Erreur lors du chargement de la liste de présence");
         console.error(error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -105,13 +102,6 @@ export default function PresenceList() {
     toast.success("Exportation pas disponible pour votre mode !");
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-full text-xl">
-        Chargement...
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col w-full px-10 py-8">

@@ -55,7 +55,9 @@ export default function AddStudentModal({
     };
 
   const generateQR = () => {
-    const base = `${form.matricule}-${form.nom}-${form.prenoms}`.trim();
+    // const base = `${form.matricule}-${form.nom}-${form.prenoms}`.trim();
+    const base = form.matricule.trim();
+
     setForm((prev) => ({
       ...prev,
       qrCode: base === "" ? "" : base,
