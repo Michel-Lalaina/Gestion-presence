@@ -104,7 +104,7 @@ export default function PresenceList() {
 
 
   return (
-    <div className="flex flex-col w-full px-10 py-8">
+    <div className="flex flex-col w-full py-8">
       <ToastContainer position="top-right" autoClose={5000} />
 
       <h1 className="text-4xl font-extrabold mb-8">
@@ -112,7 +112,7 @@ export default function PresenceList() {
       </h1>
 
       {/* FILTER BAR */}
-      <div className="w-full bg-white rounded-xl shadow p-5 flex flex-wrap gap-3 items-center mb-8">
+      <div className="w-full bg-white rounded-xl shadow p-5 flex gap-3 items-center mb-4">
         <div className="flex items-center bg-gray-100 rounded-xl px-4 py-2 w-64">
           <SearchIcon className="text-gray-500 mr-2" />
           <input
@@ -155,31 +155,31 @@ export default function PresenceList() {
         <Button
           variant="outlined"
           startIcon={<PictureAsPdfIcon />}
-          className="normal-case ml-auto"
+          className="normal-case"
           onClick={handleExcel}
         >
-          Exporter en PDF
+          Exporter
         </Button>
 
         <button
           onClick={() => setOpenPresenceModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium" >
+          className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium" >
           <span className="text-xl">＋</span>
-          Nouvel Présence
+          Nouvel
         </button>
 
 
-<button
-  onClick={() => setOpenCamera(true)}
-  className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium flex items-center gap-2"
->
-  <span className="text-xl">＋</span> Scanner presence
-</button>
+        <button
+          onClick={() => setOpenCamera(true)}
+          className="bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
+        >
+          <span className="text-xl">＋</span> Scanner
+        </button>
 
 
         <button
           onClick={() => setShowAll(true)}
-          className="bg-gray-700 hover:bg-gray-800 text-white px-5 py-2 rounded-lg font-medium"
+          className="bg-gray-700 hover:bg-gray-800 text-white py-2 rounded-lg font-medium"
         >
           Liste totale
         </button>
@@ -223,11 +223,11 @@ export default function PresenceList() {
         </table>
       </div>
 
-{openCamera && (
-  <QRCodeScanner
-    onClose={() => setOpenCamera(false)}
-  />
-)}
+      {openCamera && (
+        <QRCodeScanner
+          onClose={() => setOpenCamera(false)}
+        />
+      )}
 
 
       {openPresenceModal && (
@@ -332,6 +332,6 @@ export default function PresenceList() {
       )}
 
     </div>
-    
+
   );
 }
