@@ -3,6 +3,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // import GridOnIcon from "@mui/icons-material/GridOn";
 import { useEffect, useState } from "react";
+import QRCodeScanner from "../components/QRCodeScan";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getListPresence, createPresenceSession } from "../services/Eleve";
@@ -177,15 +179,13 @@ export default function PresenceList() {
         </button>
 
 
-        <button
-          onClick={() => {
-            setShowAll(false);
-            setOpenCamera(true);
-          }}
-          className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium flex items-center gap-2"
-        >
-          <span className="text-xl">＋</span> Scanner presence
-        </button>
+<button
+  onClick={() => setOpenCamera(true)}
+  className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-medium flex items-center gap-2"
+>
+  <span className="text-xl">＋</span> Scanner presence
+</button>
+
 
         <button
           onClick={() => setShowAll(true)}
@@ -233,33 +233,11 @@ export default function PresenceList() {
         </table>
       </div>
 
-      {openCamera && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-4 relative w-[400px]">
-            <button
-              onClick={() => setOpenCamera(false)}
-              className="absolute top-2 right-2 text-white"
-            >
-              ✕
-            </button>
-
-            <video
-              autoPlay
-              playsInline
-              className="w-full rounded-lg"
-              ref={(video) => {
-                if (video) {
-                  navigator.mediaDevices
-                    .getUserMedia({ video: true })
-                    .then((stream) => {
-                      video.srcObject = stream;
-                    });
-                }
-              }}
-            />
-          </div>
-        </div>
-      )}
+{openCamera && (
+  <QRCodeScanner
+    onClose={() => setOpenCamera(false)}
+  />
+)}
 
 
       {openPresenceModal && (
@@ -364,5 +342,6 @@ export default function PresenceList() {
       )}
 
     </div>
+    
   );
 }

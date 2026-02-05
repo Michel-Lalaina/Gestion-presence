@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { toast } from "react-toastify";
-// import { markPresence } from "../services/Eleve";
+ import { markPresence } from "../services/Eleve";
 
 interface Props {
   onClose: () => void;

@@ -17,6 +17,7 @@ export const getListPresence = async () => {
   }
 };
 
+//cree une session de présence
 export const createPresenceSession = async(payload: {
   cours: string;
   heure_debut: string;
@@ -26,6 +27,19 @@ export const createPresenceSession = async(payload: {
   const{data} = await axios.post(ApiUrl("startPresence"), payload);
   return data;
 };
+
+
+//scaner
+export const markPresence = async (payload: {
+  matricule: string;
+}) => {
+  const response = await axios.post(
+    ApiUrl("scan"),
+    payload
+  );
+  return response.data;
+};
+
 
 /* GET */
 export const getEtudiants = async () => {
