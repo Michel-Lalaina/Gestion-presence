@@ -1,17 +1,16 @@
-import { useState } from "react";
+// src/components/AddUserModal.tsx
 
-interface NewUser {
-  firstname: string;
-  lastname: string;
-  tel: string;
-  role: string;
-  email: string;
-}
+import { useState } from "react";
 
 interface AddUserModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (user: NewUser) => void;
+  onSave: (user: {
+    noms: string;
+    tel: string;
+    role: string;
+    email: string;
+  }) => void;
 }
 
 export default function AddUserModal({
@@ -19,7 +18,7 @@ export default function AddUserModal({
   onClose,
   onSave,
 }: AddUserModalProps) {
-  const [fullName, setFullName] = useState("");
+  const [noms, setNoms] = useState("");
   const [tel, setTel] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
@@ -27,38 +26,25 @@ export default function AddUserModal({
   if (!open) return null;
 
   const handleSave = () => {
-    if (!fullName || !tel || !role || !email) return;
+    if (!noms || !tel || !role || !email) return;
 
-    // Séparation prénom + nom
-    const parts = fullName.trim().split(" ");
-    const firstname = parts.slice(0, -1).join(" ");
-    const lastname = parts.slice(-1).join("");
-
-    onSave({
-      firstname,
-      lastname,
-      tel,
-      role,
-      email,
-    });
-
-    setFullName("");
+    onSave({ noms, tel, role, email });
+    setNoms("");
     setTel("");
     setRole("");
     setEmail("");
-    onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
       <div className="bg-white rounded-xl p-6 w-[420px] shadow-xl">
         <h2 className="text-xl font-bold mb-4">Ajouter un utilisateur</h2>
 
         <div className="flex flex-col gap-4">
           <input
-            placeholder="Nom complet (Prénoms Nom)"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Nom complet"
+            value={noms}
+            onChange={(e) => setNoms(e.target.value)}
             className="border rounded-lg px-4 py-2"
           />
 
@@ -84,18 +70,11 @@ export default function AddUserModal({
           />
         </div>
 
-        <div className="flex text-white justify-end gap-3 mt-6">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-black text-white"
-          >
+        <div className="flex justify-end gap-3 mt-6">
+          <button onClick={onClose} className="bg-black text-white px-4 py-2 rounded">
             Annuler
           </button>
-
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 rounded-lg bg-green-600 text-white"
-          >
+          <button onClick={handleSave} className="bg-green-600 text-white px-4 py-2 rounded">
             Ajouter
           </button>
         </div>
