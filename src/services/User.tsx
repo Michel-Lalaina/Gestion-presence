@@ -16,10 +16,12 @@ export const getListUsers = async () => {
 
 // Créer un nouvel utilisateur
 export const createUser = async (payload: {
-  noms: string;
-  tel: string;
-  role: string;
-  email: string;
+  nom: string,
+  prenom: string,
+  email: string,
+  role: string,
+  contact: string,
+  password: string
 }) => {
   try {
     const { data } = await axios.post(ApiUrl("users"), payload);

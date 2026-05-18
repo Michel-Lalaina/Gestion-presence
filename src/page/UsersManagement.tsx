@@ -19,14 +19,22 @@ interface User {
   lastLogin: string;
   roleColor: string;
 }
+interface user{
+  contact: string,
+    email: string,
+    id: number,
+    nom: string,
+    prenom: string,
+    role: string
+}
 
 const USERS_PER_PAGE = 5;
 
 export default function UsersManagement() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<user[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [editingUser, setEditingUser] = useState<user | null>(null);
 
   // Simuler utilisateur connecté
   const [currentUser] = useState<User>({
@@ -78,10 +86,12 @@ export default function UsersManagement() {
       } else {
         // Ajouter
         await createUser({
-          noms: `${user.firstname} ${user.lastname}`,
-          tel: user.tel,
-          role: user.role,
+          nom: `${user.firstname} ${user.lastname}`,
+          prenom: user.lastname,
           email: user.email,
+          role: user.role,
+          contact: user.tel,
+          password: "123456" // Mot de passe par défaut, à changer après la création
         });
         toast.success("Utilisateur ajouté");
       }
@@ -93,7 +103,7 @@ export default function UsersManagement() {
     }
   };
 
-  const handleDeleteUser = async (user: User) => {
+  const handleDeleteUser = async (user: user) => {
     if (currentUser.role !== "Admin") {
       toast.error("Seul un admin peut supprimer des utilisateurs");
       return;
@@ -112,7 +122,7 @@ export default function UsersManagement() {
     }
   };
 
-  const handleEditUser = (user: User) => {
+  const handleEditUser = (user: user) => {
     if (currentUser.role === "Admin" || currentUser.id === user.id) {
       setEditingUser(user);
       setOpenModal(true);
@@ -157,15 +167,15 @@ export default function UsersManagement() {
           <tbody>
             {paginatedUsers.map((u) => (
               <tr key={u.id} className="border-b hover:bg-gray-50 transition">
-                <td className="py-4 font-medium">{u.firstname} {u.lastname}</td>
-                <td className="text-gray-700">{u.tel}</td>
+                <td className="py-4 font-medium">{u.nom} {u.prenom}</td>
+                <td className="text-gray-700">{u.contact}</td>
                 <td>
-                  <span className={`px-3 py-1 rounded-full text-sm ${u.roleColor}`}>
+                  <span className={`px-3 py-1 rounded-full text-sm ${u.role === "Admin" ? "bg-green-200 text-green-700" : "bg-blue-200 text-blue-700"}`}>
                     {u.role}
                   </span>
                 </td>
                 <td className="text-gray-700">{u.email}</td>
-                <td className="text-gray-700">{u.lastLogin}</td>
+                <td className="text-gray-700"> _ </td>
                 <td>
                   <div className="flex gap-4">
                     {(currentUser.role === "Admin" || currentUser.id === u.id) && (

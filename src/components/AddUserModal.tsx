@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 
 interface NewUser {
-  firstname: string;
-  lastname: string;
-  tel: string;
+  nom: string;
+  prenom: string;
+  contact : string;
   role: string;
   email: string;
+  password: string;
 }
 
 interface AddUserModalProps {
@@ -18,17 +19,18 @@ interface AddUserModalProps {
 }
 
 export default function AddUserModal({ open, onClose, onSave, editingUser }: AddUserModalProps) {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [tel, setTel] = useState("");
+  const [nom, setnom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [contact, setContact] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("123456");
 
   useEffect(() => {
     if (editingUser) {
-      setFirstname(editingUser.firstname);
-      setLastname(editingUser.lastname);
-      setTel(editingUser.tel);
+      setnom(editingUser.nom);
+      setPrenom(editingUser.prenom);
+      setContact(editingUser.contact  );
       setRole(editingUser.role);
       setEmail(editingUser.email);
     }
@@ -37,14 +39,14 @@ export default function AddUserModal({ open, onClose, onSave, editingUser }: Add
   if (!open) return null;
 
   const handleSave = () => {
-    if (!firstname || !lastname || !tel || !role || !email) return;
+    if (!nom || !prenom || !contact || !role || !email) return;
 
-    onSave({ firstname, lastname, tel, role, email });
+    onSave({ nom, prenom, contact, role, email, password: "123456" });
 
     // Reset
-    setFirstname("");
-    setLastname("");
-    setTel("");
+    setnom("");
+    setPrenom("");
+    setContact("");
     setRole("");
     setEmail("");
     onClose();
@@ -56,11 +58,12 @@ export default function AddUserModal({ open, onClose, onSave, editingUser }: Add
         <h2 className="text-xl font-bold mb-4">{editingUser ? "Modifier utilisateur" : "Ajouter un utilisateur"}</h2>
 
         <div className="flex flex-col gap-4">
-          <input placeholder="Prénom" value={firstname} onChange={(e) => setFirstname(e.target.value)} className="border rounded-lg px-4 py-2" />
-          <input placeholder="Nom" value={lastname} onChange={(e) => setLastname(e.target.value)} className="border rounded-lg px-4 py-2" />
-          <input placeholder="Téléphone" value={tel} onChange={(e) => setTel(e.target.value)} className="border rounded-lg px-4 py-2" />
+          <input placeholder="Prénom" value={nom} onChange={(e) => setnom(e.target.value)} className="border rounded-lg px-4 py-2" />
+          <input placeholder="Nom" value={prenom} onChange={(e) => setPrenom(e.target.value)} className="border rounded-lg px-4 py-2" />
+          <input placeholder="Téléphone" value={contact} onChange={(e) => setContact(e.target.value)} className="border rounded-lg px-4 py-2" />
           <input placeholder="Rôle (Admin / Enseignant)" value={role} onChange={(e) => setRole(e.target.value)} className="border rounded-lg px-4 py-2" />
           <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="border rounded-lg px-4 py-2" />
+          <input placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} className="border rounded-lg px-4 py-2" />
         </div>
 
         <div className="flex text-white justify-end gap-3 mt-6">

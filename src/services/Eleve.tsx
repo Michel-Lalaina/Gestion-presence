@@ -7,24 +7,36 @@ import { API_BASE_URL } from "../config";
 const ApiUrl = (endpoint: string) => `${API_BASE_URL}/${endpoint}`;
 
 // Get Listes présences
-export const getListPresence = async () => {
+export const getListPresence = async (seanceId: string) => {
   try {
-    const response = await axios.get(ApiUrl("presences"));
+    const response = await axios.get(ApiUrl(`seances/${seanceId}/presences`));
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération du list présences", error);
     throw error;
   }
 };
-
+export const getStudentListBySeance = async (seanceId: string) => {
+  try {
+    const response = await axios.get(ApiUrl(`seances/${seanceId}/presences`));
+    return response.data.etudiants;
+  } catch (error) {
+    console.error("Erreur lors de la récupération du list présences", error);
+    throw error;
+  }
+};
 //cree une session de présence
 export const createPresenceSession = async(payload: {
   cours: string;
   heure_debut: string;
   heure_limite_retard: string;
   heure_fin: string;
+  mention:string,
+  parcours:string,
+  niveau:string
 })=>{
-  const{data} = await axios.post(ApiUrl("startPresence"), payload);
+  console.log(ApiUrl("seances/startPresence"));
+  const{data} = await axios.post(ApiUrl("seances/startPresence"), payload);
   return data;
 };
 
@@ -34,7 +46,7 @@ export const markPresence = async (payload: {
   matricule: string;
 }) => {
   const response = await axios.post(
-    ApiUrl("scan"),
+    ApiUrl("presences/scan"),
     payload
   );
   return response.data;

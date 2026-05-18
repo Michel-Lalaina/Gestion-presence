@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Avatar, CircularProgress } from "@mui/material";
+import { Button, Card, CardContent, Avatar, CircularProgress, TextField, MenuItem } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -8,6 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import AddStudentModal from "../components/AddStudentModal";
 import StudentQRModal from "../components/StudentQRModal";
 import { getEtudiants } from "../services/Eleve";
+import jsPDF from "jspdf";
+import QRCode from "qrcode";
+import { RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setMention, setNiveau, setParcours } from "../store/filterEleveSlice";
 
 const placeholderQR =
   "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=demo";
@@ -19,6 +24,34 @@ export default function StudentCardsPage() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openQRModal, setOpenQRModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
+
+  interface CardConfig {
+  width: number;
+  height: number;
+  cornerRadius: number;
+  primaryColor: string;
+  secondaryColor: string;
+  accentColor: string;
+  textColor: string;
+  lightTextColor: string;
+}
+
+const defaultCardConfig: CardConfig = {
+  width: 180,
+  height: 110,
+  cornerRadius: 10,
+  primaryColor: "#1E3A8A",
+  secondaryColor: "#3B82F6",
+  accentColor: "#60A5FA",
+  textColor: "#1F2937",
+  lightTextColor: "#6B7280",
+};
+
+const dispatch = useDispatch();
+
+const studentsFilter = useSelector(
+  (state: RootState) => state.students_filter_store
+);
 
   const fetchStudents = useCallback(async () => {
     try {
@@ -39,7 +72,7 @@ export default function StudentCardsPage() {
           parcours: s.parcours,
           niveau: s.niveau,
           naissance: s.date_naissance,
-          avatarUrl: "https://i.pravatar.cc/150",
+          avatarUrl: "https://i.pravatar.cc/"+s.id,
           qrColor: "bg-gray-100",
         }))
       );
@@ -62,9 +95,84 @@ export default function StudentCardsPage() {
     toast.success("Étudiant ajouté avec succès");
   };
 
-  const handleDownload = () => {
-    toast.info("Téléchargement non disponible pour le moment");
-  };
+const handleDownload = async (
+  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  matricule: string
+) => {
+  e.preventDefault();
+
+  try {
+    const student = students.find((s) => s.matricule === matricule);
+
+    if (!student) {
+      toast.error("Étudiant introuvable");
+      return;
+    }
+
+    // Générer le QR code à partir du matricule
+    const qrCodeDataUrl = await QRCode.toDataURL(student.matricule, {
+      width: 200,
+      margin: 1,
+    });
+
+    // Création PDF
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
+
+    // Titre
+    doc.setFontSize(18);
+    doc.text("Carte Étudiant", 80, 20);
+
+    // Cadre carte
+    doc.rect(20, 30, 170, 90);
+
+    // Informations étudiant
+    doc.setFontSize(12);
+
+    doc.setTextColor(defaultCardConfig.lightTextColor);
+    doc.setFontSize(9);
+    doc.setTextColor(defaultCardConfig.textColor);
+    doc.text(`Nom complet : ${student.fullName}`, 30, 45);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(`Matricule : ${student.matricule}`, 30, 55);
+    doc.text(`Mention : ${student.mention}`, 30, 65);
+    doc.text(`Parcours : ${student.parcours}`, 30, 75);
+    doc.text(`Niveau : ${student.niveau}`, 30, 85);
+    doc.text(`Naissance : ${student.naissance}`, 30, 95);
+
+    // QR Code
+    doc.addImage(qrCodeDataUrl, "PNG", 130, 45, 40, 40);
+
+    // Télécharger
+    doc.save(`Carte_${student.matricule}.pdf`);
+
+    toast.success("PDF généré avec succès");
+  } catch (error) {
+    console.error(error);
+    toast.error("Erreur lors de la génération du PDF");
+  }
+};
+
+const filteredStudents = students.filter((student) => {
+  const matchMention =
+    !studentsFilter.mention ||
+    student.mention === studentsFilter.mention;
+
+  const matchParcours =
+    !studentsFilter.parcours ||
+    student.parcours === studentsFilter.parcours;
+
+  const matchNiveau =
+    !studentsFilter.niveau ||
+    student.niveau === studentsFilter.niveau;
+    console.log(matchMention,matchParcours,matchNiveau);
+
+  return matchMention && matchParcours && matchNiveau;
+});
 
   return (
     <div className="flex w-full min-h-screen bg-gray-50">
@@ -107,7 +215,53 @@ export default function StudentCardsPage() {
         {/* LIST */}
         {!loading && students.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10">
-            {students.map((student) => (
+ <TextField
+  label="Mention"
+  select
+  fullWidth
+  value={studentsFilter.mention}
+  onChange={(e) =>
+    dispatch(setMention(e.target.value))
+}
+>
+  <MenuItem value="">Tous</MenuItem>
+  <MenuItem value="Informatique">Informatique</MenuItem>
+  <MenuItem value="Intelligence Artificielle">
+    Intelligence artificielle
+  </MenuItem>
+</TextField>
+              <TextField
+                label="Parcours"
+                select
+                fullWidth
+                value={studentsFilter.parcours}
+                onChange={(e) =>
+                  dispatch(setParcours(e.target.value))
+                }
+              >
+                {studentsFilter.mention=="Informatique" && <MenuItem value="GB"> Génie Logiciel et Base de donnée </MenuItem>}
+                {studentsFilter.mention=="Informatique" &&<MenuItem value="SR"> Systeme et Réseau </MenuItem>}
+                {studentsFilter.mention=="Informatique" &&<MenuItem value="IG"> Informatique Génerale </MenuItem>}
+                {studentsFilter.mention=="Intelligence Artificielle" && <MenuItem value="GID"> Gouvernance et Ingénieurie de Donnée </MenuItem>}
+                {studentsFilter.mention=="Intelligence Artificielle" &&<MenuItem value="OCC"> Objet Connecté et Cybersécurité </MenuItem>}
+              </TextField>
+              <TextField
+                label="Niveau"
+                select
+                fullWidth
+                value={studentsFilter.niveau}
+                onChange={(e) =>
+                  dispatch(setNiveau(e.target.value))
+                }
+              >
+                <MenuItem value="L1">L1</MenuItem>
+                <MenuItem value="L2">L2</MenuItem>
+                <MenuItem value="L3">L3</MenuItem>
+                <MenuItem value="M1">M1</MenuItem>
+                <MenuItem value="M2">M2</MenuItem>
+              </TextField>
+
+            {filteredStudents.map((student) => (
               <Card
                 key={student.id}
                 className="p-6 rounded-2xl shadow-md flex flex-col gap-4"
@@ -141,7 +295,7 @@ export default function StudentCardsPage() {
                     startIcon={<QrCodeIcon />}
                     className="normal-case border-gray-400 text-gray-700"
                     onClick={() => {
-                      setSelectedStudent(student);
+                      setSelectedStudent(student );
                       setOpenQRModal(true);
                     }}
                   >
@@ -152,7 +306,7 @@ export default function StudentCardsPage() {
                     variant="contained"
                     startIcon={<DownloadIcon />}
                     className="normal-case bg-green-600 hover:bg-green-700"
-                    onClick={handleDownload}
+                    onClick={e=>handleDownload(e,student.matricule )}
                   >
                     Télécharger
                   </Button>

@@ -1,15 +1,33 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { toast } from "react-toastify";
- import { markPresence } from "../services/Eleve";
+import { markPresence } from "../services/Eleve";
 
 interface Props {
   onClose: () => void;
 }
 
 export default function QRCodeScanner({ onClose }: Props) {
+  /**
+   * scannerRef :
+   * garde UNE seule instance du scanner
+   */
+  const scannerRef = useRef<Html5QrcodeScanner | null>(null);
+
+  /**
+   * hasScannedRef :
+   * empêche qu’un même QR soit traité 2 fois
+   */
+  const hasScannedRef = useRef(false);
+
   useEffect(() => {
-    const scanner = new Html5QrcodeScanner(
+    /**
+     * Si le scanner existe déjà,
+     * on ne recrée pas une deuxième caméra
+     */
+    if (scannerRef.current) return;
+
+    scannerRef.current = new Html5QrcodeScanner(
       "qr-reader",
       {
         fps: 10,
@@ -18,17 +36,46 @@ export default function QRCodeScanner({ onClose }: Props) {
       false
     );
 
-    scanner.render(
+    scannerRef.current.render(
       async (decodedText) => {
+        /**
+         * Si déjà scanné → stop
+         */
+        if (hasScannedRef.current) return;
+
+        /**
+         * verrouillage anti double scan
+         */
+        hasScannedRef.current = true;
+
         try {
           await markPresence({
             matricule: decodedText,
           });
 
           toast.success("Présence enregistrée");
-          scanner.clear();
+
+          /**
+           * stop caméra
+           */
+          await scannerRef.current?.clear();
+
+          /**
+           * reset scanner
+           */
+          scannerRef.current = null;
+
+          /**
+           * fermer modal
+           */
           onClose();
+
         } catch (error) {
+          /**
+           * si erreur → autoriser un nouveau scan
+           */
+          hasScannedRef.current = false;
+
           toast.error("QR invalide ou étudiant non trouvé");
           console.error(error);
         }
@@ -37,7 +84,13 @@ export default function QRCodeScanner({ onClose }: Props) {
     );
 
     return () => {
-      scanner.clear().catch(() => {});
+      /**
+       * nettoyage quand composant détruit
+       */
+      if (scannerRef.current) {
+        scannerRef.current.clear().catch(() => {});
+        scannerRef.current = null;
+      }
     };
   }, [onClose]);
 
