@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import QRCodeScanner from "../components/QRCodeScan";
 
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import { getListPresence, createPresenceSession, getStudentListBySeance } from "../services/Eleve";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -279,9 +279,8 @@ const fetchData = async () => {
 
         <button
           onClick={() => setOpenPresenceModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium" >
-          <span className="text-xl">＋</span>
-          Nouvel
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium" >
+          <span className="text-xs">＋</span>Nouvel
         </button>
 
 
@@ -289,7 +288,7 @@ const fetchData = async () => {
           onClick={() => setOpenCamera(true)}
           className="bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
         >
-          <span className="text-xl">＋</span> Scanner
+          <span className="text-xs">＋</span>Scanner
         </button>
 
 

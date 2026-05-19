@@ -15,81 +15,70 @@ export const Side: React.FC = () => {
   const handleLogout = () => {
     navigate("/login");
   };
-    return (
-        <aside className="h-screen bg-white shadow-sm flex flex-col px-6 py-8 fixed ">
 
-            {/* LOGO */}
-            <div className="flex items-center gap-3 mb-10"> 
-                <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white">
-                    QR
-                </div>
-                <div className="font-bold text-lg">QRPrésence</div>
-            </div>
+return (
+  <aside className="h-screen w-64 bg-gradient-to-b from-white to-gray-50/80 backdrop-blur-xl border-r border-gray-100 shadow-xl flex flex-col px-5 py-6 fixed">
 
-            {/* NAVIGATION */}
-            <nav className="flex flex-col gap-4 text-gray-700">
+    {/* LOGO */}
+    <div className="flex items-center gap-3 mb-10 px-2">
+      <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold shadow-md">
+        QR
+      </div>
+      <div className="font-bold text-xl tracking-tight text-gray-800">
+        QRPrésence
+      </div>
+    </div>
 
-                <NavLink
-                    to="/dashboard"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
-                        }`
-                    }
-                >
-                    <DashboardIcon /> Dashboard
-                </NavLink>
+    {/* NAVIGATION */}
+    <nav className="flex flex-col gap-2 text-gray-600">
 
-                <NavLink
-                    to="/etudiants"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
-                        }`
-                    }
-                >
-                    <PersonIcon /> Cartes d'étudiant
-                </NavLink>
+      {[
+        { to: "/dashboard", icon: <DashboardIcon />, label: "Dashboard" },
+        { to: "/etudiants", icon: <PersonIcon />, label: "Cartes d'étudiant" },
+        { to: "/presences", icon: <QrCodeIcon />, label: "Présence" },
+        { to: "/utilisateurs", icon: <AdminPanelSettings />, label: "Utilisateurs" },
+        { to: "/parametres", icon: <SettingsIcon />, label: "Paramètres" },
+      ].map((item) => (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          className={({ isActive }) =>
+            `group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+            ${
+              isActive
+                ? "bg-green-50 text-green-700 font-semibold shadow-sm"
+                : "hover:bg-gray-100 hover:text-gray-900"
+            }`
+          }
+        >
+          {/* active indicator */}
+          <span className="absolute left-0 top-2 bottom-2 w-1 rounded-full bg-green-500 scale-y-0 group-hover:scale-y-100 transition-transform duration-200" />
 
-                <NavLink
-                    to="/presences"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
-                        }`
-                    }
-                >
-                    <QrCodeIcon /> Présence
-                </NavLink>
+          <span
+            className={`transition-transform duration-200 group-hover:scale-110 ${
+              "text-lg"
+            }`}
+          >
+            {item.icon}
+          </span>
 
-                <NavLink
-                    to="/utilisateurs"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
-                        }`
-                    }
-                >
-                    <AdminPanelSettings /> Utilisateurs
-                </NavLink>
+          <span className="text-sm tracking-wide">{item.label}</span>
+        </NavLink>
+      ))}
+    </nav>
 
-                <NavLink
-                    to="/parametres"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 cursor-pointer ${isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
-                        }`
-                    }
-                >
-                    <SettingsIcon /> Paramètres
-                </NavLink>
-            </nav>
-
-            {/* LOGOUT BUTTON */}
-            <div className="mt-auto">
-                      <button
-        onClick={handleLogout} // <-- redirection vers Login
-        className="normal-case bg-purple-500 text-white hover:bg-purple-700"
+    {/* LOGOUT */}
+    <div className="mt-auto px-2">
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl
+        bg-red-50 text-red-600 font-medium
+        hover:bg-red-100 hover:shadow-md
+        transition-all duration-200"
       >
-        Se déconnecter
-       </button>
-
-            </div>
-        </aside>
+        Déconnexion
+      </button>
+    </div>
+  </aside>
     );
 };
