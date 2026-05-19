@@ -34,13 +34,12 @@ export default function StatsCards() {
 
   if (loading || !apiStats) {
     return (
-      <div className="text-center py-10 text-gray-500">
+      <div className="text-center py-10 text-gray-500 animate-pulse">
         Chargement des statistiques...
       </div>
     );
   }
 
-  // Trouver le nombre de cours aujourd’hui
   const today = new Date().toISOString().split("T")[0];
 
   const coursToday =
@@ -55,7 +54,8 @@ export default function StatsCards() {
       icon: (
         <EventAvailableIcon className="text-green-500 drop-shadow-sm" />
       ),
-      bg: "from-green-100 to-green-50",
+      bg: "from-green-50 to-green-100",
+      border: "border-green-200",
     },
 
     {
@@ -64,7 +64,8 @@ export default function StatsCards() {
       icon: (
         <PeopleIcon className="text-blue-500 drop-shadow-sm" />
       ),
-      bg: "from-blue-100 to-blue-50",
+      bg: "from-blue-50 to-blue-100",
+      border: "border-blue-200",
     },
 
     {
@@ -73,16 +74,18 @@ export default function StatsCards() {
       icon: (
         <CalendarTodayIcon className="text-purple-500 drop-shadow-sm" />
       ),
-      bg: "from-purple-100 to-purple-50",
+      bg: "from-purple-50 to-purple-100",
+      border: "border-purple-200",
     },
 
     {
       title: "Taux d'Absence",
-      value: apiStats.presence.taux_absence+"%",
+      value: apiStats.presence.taux_absence + "%",
       icon: (
         <HighlightOffIcon className="text-red-500 drop-shadow-sm" />
       ),
-      bg: "from-red-100 to-red-50",
+      bg: "from-red-50 to-red-100",
+      border: "border-red-200",
     },
   ];
 
@@ -92,39 +95,46 @@ export default function StatsCards() {
         grid grid-cols-4 gap-6
         max-xl:grid-cols-2
         max-md:grid-cols-1
-        transition-all
       "
     >
       {stats.map((s, i) => (
         <div
           key={i}
           className={`
+            flex flex-col justify-between
             bg-white
-            shadow-md
             rounded-2xl
-            px-6
-            py-6
+            p-6
             border
-            border-gray-100
-            hover:shadow-lg
+            ${s.border}
+            shadow-sm
+            hover:shadow-xl
             hover:-translate-y-1
             transition-all
             duration-300
-            bg-gradient-to-b
+            bg-gradient-to-br
             ${s.bg}
           `}
         >
-          <div className="flex items-center gap-3">
-            <div className="text-4xl p-2 bg-white rounded-lg shadow-sm">
+          {/* Header */}
+          <div className="flex items-center gap-4">
+            <div
+              className="
+                p-3 rounded-xl bg-white shadow
+                flex items-center justify-center
+                text-3xl
+              "
+            >
               {s.icon}
             </div>
 
-            <p className="font-semibold text-gray-700">
+            <p className="font-semibold text-gray-700 text-lg">
               {s.title}
             </p>
           </div>
 
-          <p className="text-3xl font-black mt-4 text-gray-800">
+          {/* Value */}
+          <p className="text-4xl font-extrabold mt-5 text-gray-900 tracking-tight">
             {s.value}
           </p>
         </div>

@@ -169,19 +169,6 @@ const fetchData = async () => {
   
   setEmptyDataSeance({data:newStudentData})
 
-
-    // setData(
-    //   apiData.map((p: any) => ({
-    //     id: p.id,
-    //     name: p.nom_complet ?? p.name,
-    //     avatar: p.avatar ?? "https://i.pravatar.cc/150",
-    //     cours: p.cours,
-    //     date: p.date,
-    //     entree: p.entree ?? "-",
-    //     sortie: p.sortie ?? "-",
-    //     statut: p.statut,
-    //   }))
-    // );
   } catch (error) {
     toast.error("Erreur lors du chargement de la liste de présence");
     console.error(error);
