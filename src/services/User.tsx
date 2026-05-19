@@ -34,9 +34,9 @@ export const createUser = async (payload: {
 
 // Mettre à jour un utilisateur existant
 export const updateUser = async (id: number, payload: {
-  firstname: string;
-  lastname: string;
-  tel: string;
+  nom: string;
+  prenom: string;
+  contact : string;
   role: string;
   email: string;
 }) => {

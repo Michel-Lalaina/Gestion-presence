@@ -77,7 +77,7 @@ export default function UsersManagement() {
     currentPage * USERS_PER_PAGE
   );
 
-  const handleAddUser = async (user: Omit<User, "id" | "lastLogin" | "roleColor">) => {
+  const handleAddUser = async (user: Omit<user, "id" | "lastLogin" | "roleColor">) => {
     try {
       if (editingUser) {
         // Modifier
@@ -86,11 +86,11 @@ export default function UsersManagement() {
       } else {
         // Ajouter
         await createUser({
-          nom: `${user.firstname} ${user.lastname}`,
-          prenom: user.lastname,
+          nom: `${user.nom} ${user.prenom}`,
+          prenom: user.prenom,
           email: user.email,
           role: user.role,
-          contact: user.tel,
+          contact: user.contact,
           password: "123456" // Mot de passe par défaut, à changer après la création
         });
         toast.success("Utilisateur ajouté");
