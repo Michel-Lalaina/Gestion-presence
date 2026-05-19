@@ -365,10 +365,24 @@ const fetchData = async () => {
         </div>    
       )}
 
-      {openCamera && (
+      {openCamera &&(
         <QRCodeScanner
-          onClose={() => setOpenCamera(false)}
-        />
+          onClose={async (matricule :string) =>{
+             setOpenCamera(false);
+             console.log("mandeha lty");
+             
+             if(seance.id !== null){
+              const StudentData = await getStudentListBySeance(seance.id.toString())
+              let newStudentData = StudentData.map((std:any)=>{
+                if(std.matricule === matricule){  
+                return {...std, statut: "Effectué"}
+                }
+                return {...std,statut:"En cours"}
+             })
+            setEmptyDataSeance({data:newStudentData})
+            }}
+             }
+            />
       )}
 
 

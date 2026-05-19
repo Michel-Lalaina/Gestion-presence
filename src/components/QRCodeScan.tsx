@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { toast } from "react-toastify";
 import { markPresence } from "../services/Eleve";
 
 interface Props {
-  onClose: () => void;
+  onClose: (matricule: string) => void;
 }
 
 export default function QRCodeScanner({ onClose }: Props) {
@@ -13,6 +13,7 @@ export default function QRCodeScanner({ onClose }: Props) {
    * garde UNE seule instance du scanner
    */
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
+  const [decodedText, setDecodedText] = useState("");
 
   /**
    * hasScannedRef :
@@ -38,6 +39,7 @@ export default function QRCodeScanner({ onClose }: Props) {
 
     scannerRef.current.render(
       async (decodedText) => {
+        setDecodedText(decodedText);
         /**
          * Si déjà scanné → stop
          */
@@ -68,7 +70,7 @@ export default function QRCodeScanner({ onClose }: Props) {
           /**
            * fermer modal
            */
-          onClose();
+          onClose(decodedText);
 
         } catch (error) {
           /**
@@ -98,7 +100,7 @@ export default function QRCodeScanner({ onClose }: Props) {
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-4 w-[380px] relative">
         <button
-          onClick={onClose}
+          onClick={() => onClose(decodedText)}
           className="absolute top-2 right-2 text-gray-700"
         >
           ✕
