@@ -10,12 +10,14 @@ import { toast, ToastContainer } from "react-toastify";
 import { getListPresence, createPresenceSession, getStudentListBySeance } from "../services/Eleve";
 
 import { useDispatch, useSelector } from "react-redux";
+import {setEmptyDataSeance} from "../store/emptyDataSeanceSlice";
 import {
   setSeance,
   clearSeance,
   closeSeance,
 } from "../store/seanceSlice";
 import { RootState } from "../store/store";
+import { useAppSelector } from "../store/hooks/hooks";
 
 const statusColors: Record<string, string> = {
   Présent: "bg-green-600 text-white",
@@ -56,7 +58,8 @@ interface UpPresence {
 
 export default function PresenceList() {
   const [data, setData] = useState<{ data: UpPresence[],date:string,seance:string }>({ data: [],date: "",seance:""});
-  const [EmptyDataSeance, setEmptyDataSeance] = useState<{ data: Student[]}>({ data: []});
+  // const [EmptyDataSeance, setEmptyDataSeance] = useState<{ data: Student[]}>({ data: []});
+  const EmptyDataSeance =  useAppSelector((state) => state.emptyDataSeance.data);
   const [search, setSearch] = useState("");
   const [courseFilter, setCourseFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("all");
@@ -95,7 +98,9 @@ export default function PresenceList() {
   const StudentData = await getStudentListBySeance(response.seance.id.toString())
   let newStudentData = StudentData.map((std:any)=>{return {...std, statut: "En cours"}})
   
-  setEmptyDataSeance({data:newStudentData})
+  dispatch(
+  setEmptyDataSeance (newStudentData)
+);
 
 
 };
@@ -163,11 +168,12 @@ const fetchData = async () => {
     }
     );
 
-    // actualisation liste vierge 
-  const StudentData = await getStudentListBySeance(seance.id.toString())
-  let newStudentData = StudentData.map((std:any)=>{return {...std, statut: "En cours"}})
-  
-  setEmptyDataSeance({data:newStudentData})
+    // actualisation liste vierge selon le redux store 
+    if(EmptyDataSeance!==undefined && EmptyDataSeance.length === 0){
+      const StudentData = await getStudentListBySeance(seance.id.toString())
+    let newStudentData = StudentData.map((std:any)=>{return {...std, statut: "En cours"}})
+    dispatch( setEmptyDataSeance (newStudentData))
+    }
 
   } catch (error) {
     toast.error("Erreur lors du chargement de la liste de présence");
@@ -290,7 +296,7 @@ const fetchData = async () => {
       {seance.id !== null ? (
         <div className="bg-white rounded-xl shadow overflow-hidden">
           <div className="text-center">
-            <h5 className="py-4 px-6 font-bold"> présences pour le cours {seance.cours.toUpperCase()} {seance.niveau +" " + seance.parcours.toUpperCase()} </h5>
+            <h5 className="py-4 px-6 font-bold"> Présences pour le cours {seance.cours.toUpperCase()} {seance.niveau +" " + seance.parcours.toUpperCase()} de {seance.heure_debut} à {seance.heure_fin} </h5>
           </div>
           <table className="w-full border-collapse">
             <thead className="bg-gray-100 text-gray-600 text-left text-sm">
@@ -314,7 +320,8 @@ const fetchData = async () => {
           <tbody>
     {
     // SEANCE ACTIVE
-    (seance.active && EmptyDataSeance.data.length > 0) ? EmptyDataSeance.data.map((row) => (
+
+    (seance.active && EmptyDataSeance!==undefined && EmptyDataSeance.length > 0) ? EmptyDataSeance.map((row) => (
             <tr key={row.id} className="border-t hover:bg-gray-50">
               <td className="py-4 px-6">
                 {row.niveau} {row.parcours}
@@ -372,14 +379,19 @@ const fetchData = async () => {
              console.log("mandeha lty");
              
              if(seance.id !== null){
-              const StudentData = await getStudentListBySeance(seance.id.toString())
-              let newStudentData = StudentData.map((std:any)=>{
+              let newStudentData = EmptyDataSeance.map((std:any)=>{
                 if(std.matricule === matricule){  
                 return {...std, statut: "Effectué"}
                 }
-                return {...std,statut:"En cours"}
-             })
-            setEmptyDataSeance({data:newStudentData})
+                return std
+              })
+            //   let newStudentData = StudentData.map((std:any)=>{
+            //     if(std.matricule === matricule){  
+            //     return {...std, statut: "Effectué"}
+            //     }
+            //     return {...std,statut:"En cours"}
+            //  })
+             dispatch(setEmptyDataSeance (newStudentData))
             }}
              }
             />

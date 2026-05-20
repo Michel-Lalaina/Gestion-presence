@@ -35,7 +35,6 @@ export const createPresenceSession = async(payload: {
   parcours:string,
   niveau:string
 })=>{
-  console.log(ApiUrl("seances/startPresence"));
   const{data} = await axios.post(ApiUrl("seances/startPresence"), payload);
   return data;
 };
