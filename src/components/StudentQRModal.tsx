@@ -15,7 +15,7 @@ export default function StudentQRModal({
   matricule,
   fullName,
 }: StudentQRModalProps) {
-  const qrValue = `${matricule}-${fullName}`;
+  const qrValue = `${matricule}`;
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>

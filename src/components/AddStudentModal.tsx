@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  MenuItem,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import QRCode from "react-qr-code";
@@ -152,26 +153,46 @@ export default function AddStudentModal({
               />
             </div>
 
-            <TextField
+                        <TextField
               label="Mention"
+              select
               fullWidth
               value={form.mention}
               onChange={handleChange("mention")}
-            />
+            >
+              <MenuItem value="Informatique">Informatique</MenuItem>
+              <MenuItem value="Intelligence Artificielle">
+                Intelligence artificielle
+              </MenuItem>
+            </TextField>
 
             <TextField
               label="Parcours"
+              select
               fullWidth
               value={form.parcours}
               onChange={handleChange("parcours")}
-            />
+            >
+                {form.mention=="Informatique" && <MenuItem value="GB"> Génie Logiciel et Base de donnée </MenuItem>}
+                {form.mention=="Informatique" &&<MenuItem value="SR"> Systeme et Réseau </MenuItem>}
+                {form.mention=="Informatique" &&<MenuItem value="IG"> Informatique Génerale </MenuItem>}
+                {form.mention=="Intelligence Artificielle" && <MenuItem value="GID"> Gouvernance et Ingénieurie de Donnée </MenuItem>}
+                {form.mention=="Intelligence Artificielle" &&<MenuItem value="OCC"> Objet Connecté et Cybersécurité </MenuItem>}
+            </TextField>
 
             <TextField
               label="Niveau"
+              select
               fullWidth
               value={form.niveau}
               onChange={handleChange("niveau")}
-            />
+            >
+                <MenuItem value="L1">L1</MenuItem>
+                <MenuItem value="L2">L2</MenuItem>
+                <MenuItem value="L3">L3</MenuItem>
+                <MenuItem value="M1">M1</MenuItem>
+                <MenuItem value="M2">M2</MenuItem>
+            </TextField>
           </div>
 
           {/* QR PREVIEW */}

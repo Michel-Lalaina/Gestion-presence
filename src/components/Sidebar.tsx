@@ -4,7 +4,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import { NavLink } from "react-router-dom";
 
-import { AdminPanelSettings } from "@mui/icons-material";
+import { AdminPanelSettings, BookOnlineOutlined } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +36,7 @@ return (
         { to: "/dashboard", icon: <DashboardIcon />, label: "Dashboard" },
         { to: "/etudiants", icon: <PersonIcon />, label: "Cartes d'étudiant" },
         { to: "/presences", icon: <QrCodeIcon />, label: "Présence" },
+        { to: "/cours", icon: <BookOnlineOutlined />, label: "Cours" },
         { to: "/utilisateurs", icon: <AdminPanelSettings />, label: "Utilisateurs" },
         { to: "/parametres", icon: <SettingsIcon />, label: "Paramètres" },
       ].map((item) => (

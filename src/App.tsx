@@ -30,6 +30,7 @@ import Dashboard from "./page/Dashboard";
 import Settings from "./page/Settings";
 import UsersManagement from "./page/UsersManagement";
 import Login from "./page/Login";
+import PresenceCoursList from "./components/ListPresences";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/presences" element={<PresenceList />} />
+        <Route path="/cours" element={<PresenceCoursList />} />
         <Route path="/etudiants" element={<StudentCardsPage />} />
         <Route path="/parametres" element={<Settings />} />
         <Route path="/utilisateurs" element={<UsersManagement />} />
