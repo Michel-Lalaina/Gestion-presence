@@ -1,5 +1,13 @@
+
+
 import React, { useState } from "react";
-import { TextField, Button, InputAdornment, IconButton } from "@mui/material";
+import {
+  TextField,
+  Button,
+  InputAdornment,
+  IconButton,
+  MenuItem,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import LoginImage from "../assets/images/time-attendance.jpg";
@@ -8,6 +16,8 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -17,14 +27,34 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-300 w-screen">
-      <div className="bg-white shadow-2xl rounded-3xl flex flex-col md:flex-row overflow-hidden max-w-4xl w-full">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-400 w-screen">
 
-        {/* Left Side - Form */}
+      <div className="relative bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl flex flex-col md:flex-row overflow-hidden max-w-5xl w-full">
+
+        {/* LOGO TOP LEFT */}
+        <div className="absolute top-4 left-4 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+            QR
+          </div>
+          <span className="font-semibold text-gray-700">
+            QRP Univ
+          </span>
+        </div>
+
+        {/* LEFT FORM */}
         <div className="p-10 md:p-16 flex flex-col justify-center w-full md:w-1/2">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Bienvenue QRP</h2>
-          <p className="text-gray-500 mb-10">Cliquez sur le bouton pour continuer en tant que visiteur de l'application</p>
-          <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
+
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">
+            Bienvenue 👋
+          </h2>
+
+          <p className="text-gray-500 mb-8 text-sm">
+            Connectez-vous pour accéder à votre espace de gestion
+          </p>
+
+          <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
+
+            {/* EMAIL */}
             <TextField
               label="Email"
               variant="outlined"
@@ -32,6 +62,8 @@ const Login: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+
+            {/* PASSWORD */}
             <TextField
               label="Mot de passe"
               variant="outlined"
@@ -49,25 +81,43 @@ const Login: React.FC = () => {
                 ),
               }}
             />
+
+            {/* ROLE SELECT */}
+            <TextField
+              select
+              label="Rôle"
+              fullWidth
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <MenuItem value="admin">Administrateur</MenuItem>
+              <MenuItem value="teacher">Enseignant</MenuItem>
+              {/* <MenuItem value="student">Étudiant</MenuItem> */}
+            </TextField>
+
+            {/* BUTTON */}
             <Button
               type="button"
               variant="contained"
-              color="primary"
-              onClick={handleLogin} // <-- redirection directe
-              className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-purple-500 hover:to-indigo-500 text-white py-3 rounded-xl transition-all duration-300"
+              onClick={handleLogin}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 text-white py-3 rounded-xl transition-all duration-300 shadow-lg"
             >
-              Visualiser
+              Se connecter
             </Button>
+
           </form>
         </div>
 
-        {/* Right Side - Illustration */}
-        <div className=" md:block md:w-1/2 bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center">
+        {/* RIGHT IMAGE */}
+        <div className="hidden md:block md:w-1/2 relative">
           <img
             src={LoginImage}
             alt="Login Illustration"
             className="object-cover h-full w-full"
           />
+
+          {/* overlay premium */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
       </div>
     </div>
